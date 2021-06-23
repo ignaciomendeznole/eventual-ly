@@ -1,19 +1,48 @@
-const initialState = {
-  token: null,
-  isAuthenticated: false,
-  user: null,
+import { AuthAction, AuthState } from '../../types/types';
+
+const initialState: AuthState = {
+  uid: '',
+  userName: '',
+  isLoading: false,
+  error: false,
+  errorMessage: '',
+  isLoggedIn: false,
+  onBoarding: false,
 };
 
-export const authReducer = (state = initialState, action: any) => {
+export const authReducer = (
+  state: AuthState = initialState,
+  action: AuthAction
+) => {
   switch (action.type) {
-    case 'SIGNUP':
+    case 'signIn':
       return {
         ...state,
-        token: action.payload,
+        uid: action.payload.uid,
+        userName: action.payload.displayName,
+        isLoggedIn: true,
+        onBoarding: true,
+      };
+    case 'signInError':
+      return {
+        ...state,
+        uid: null,
+        userName: null,
+        error: action.payload.error,
+        errorMessage: action.payload.errorMsg,
+        isLoading: false,
+      };
+    case 'loggingIn':
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    case 'hideOnBoarding':
+      return {
+        ...state,
+        onBoarding: false,
       };
     default:
-      return {
-        state,
-      };
+      return state;
   }
 };

@@ -2,11 +2,11 @@ import 'react-native-gesture-handler';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { Provider } from 'react-redux';
-import store from './src/store/store';
+import store from './src/store/index';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState<boolean>(false);
@@ -27,6 +27,7 @@ export default function App() {
   }
   return (
     <NavigationContainer>
+      <StatusBar barStyle='dark-content' />
       <Provider store={store}>
         <AppNavigator />
       </Provider>

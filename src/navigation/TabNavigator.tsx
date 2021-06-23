@@ -1,24 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { BottomTabParams } from '../types/types';
+import HomeIcon from '../../assets/TabBar/HomeIcon';
+import EventsIcon from '../../assets/TabBar/EventsIcon';
 import { HomeStackNavigator } from './HomeStackNavigator';
 import { MyTickets } from '../screens/MyTickets';
-import { StyleSheet, View, Text, Animated } from 'react-native';
-import HomeIcon from '../components/TabBarIcons/HomeIcon';
+import { StyleSheet, View, Animated } from 'react-native';
 import { ProfileStackNavigator } from './ProfileStackNavigator';
 import { SavedEventsNavigator } from './SavedEventsNavigator';
-import EventsIcon from '../components/TabBarIcons/EventsIcon';
-import { useRef } from 'react';
-import { Dimensions } from 'react-native';
 
 const TabNavigator = createBottomTabNavigator<BottomTabParams>();
 
 export const BottomTabNavigator = () => {
-  const getWidth = () => {
-    const width = Dimensions.get('screen').width;
-    return width / 4;
-  };
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
   return (
     <TabNavigator.Navigator
@@ -62,14 +56,6 @@ export const BottomTabNavigator = () => {
             </View>
           ),
         }}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
-            Animated.spring(tabOffsetValue, {
-              toValue: -7,
-              useNativeDriver: true,
-            }).start();
-          },
-        })}
       />
       <TabNavigator.Screen
         name='MyTickets'
@@ -89,14 +75,6 @@ export const BottomTabNavigator = () => {
             </View>
           ),
         }}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
-            Animated.spring(tabOffsetValue, {
-              toValue: 0,
-              useNativeDriver: true,
-            }).start();
-          },
-        })}
       />
       <TabNavigator.Screen
         name='WishList'
@@ -116,14 +94,6 @@ export const BottomTabNavigator = () => {
             </View>
           ),
         }}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
-            Animated.spring(tabOffsetValue, {
-              toValue: 0,
-              useNativeDriver: true,
-            }).start();
-          },
-        })}
       />
       <TabNavigator.Screen
         name='ProfileStack'
@@ -143,14 +113,6 @@ export const BottomTabNavigator = () => {
             </View>
           ),
         }}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
-            Animated.spring(tabOffsetValue, {
-              toValue: 0,
-              useNativeDriver: true,
-            }).start();
-          },
-        })}
       />
     </TabNavigator.Navigator>
   );

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LottieImage from '../../../assets/Login/Lottie';
 import GoogleIcon from '../../../assets/Login/Google';
+import * as GoogleSignin from 'expo-google-sign-in';
 import firebase from '../../database/firebase';
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -12,6 +13,11 @@ import {
   Platform,
 } from 'react-native';
 import styles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  startGoogleLogin,
+  startLoginEmailPassword,
+} from '../../store/actions/authActions';
 
 export type Credentials = {
   email: string;
@@ -19,6 +25,8 @@ export type Credentials = {
 };
 
 export const LoginScreen = () => {
+  const dispatch = useDispatch();
+  const error = useSelector((state: any) => state.authReducer);
   const [credentials, setCredentials] = useState<Credentials>({
     email: '',
     password: '',
@@ -29,73 +37,75 @@ export const LoginScreen = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const signIn = async () => {
-    console.log(credentials);
-    const response = await firebase.firebase
-      .auth()
-      .signInWithEmailAndPassword(credentials.email, credentials.password);
-    firebase.db
-      .collection('users')
-      .doc(firebase.firebase.auth().currentUser?.uid);
+  const handleLogin = () => {
+    dispatch(startLoginEmailPassword(credentials.email, credentials.password));
+  };
+
+  const handleGoogleLogin = () => {
+    const response = dispatch(startGoogleLogin());
+    console.log(error);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.lottieContainer}>
-        <LottieImage />
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.textStyle}>
-          Don't ever miss out on anything (again).
-        </Text>
-      </View>
-      <TouchableOpacity
-        style={styles.googleButtonContainer}
-        activeOpacity={0.8}
-      >
-        <GoogleIcon />
-        <Text style={styles.googleSignText}>Sign in with Google</Text>
-      </TouchableOpacity>
-      <View style={styles.separator}>
-        <View style={styles.lineStyle} />
-        <Text style={styles.separatorText}>Or</Text>
-        <View style={styles.lineStyle} />
-      </View>
-
       <KeyboardAvoidingView
         enabled
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.formContainer}>
-          <View style={styles.inputForm}>
-            <TextInput
-              placeholder='Please enter your email'
-              onChangeText={(text) => handleChangeText('email', text)}
-            />
+        <View>
+          <View style={styles.lottieContainer}>
+            <LottieImage />
           </View>
-          <View style={styles.inputForm}>
-            <TextInput
-              placeholder='Please enter your password'
-              onChangeText={(text) => handleChangeText('password', text)}
-            />
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => setPasswordVisible(!passwordVisible)}
-            >
-              <AntDesign
-                name={passwordVisible ? 'eye' : 'eyeo'}
-                size={24}
-                color='black'
-              />
-            </TouchableOpacity>
+          <View style={styles.textContainer}>
+            <Text style={styles.textStyle}>
+              Don't ever miss out on anything (again).
+            </Text>
           </View>
           <TouchableOpacity
-            style={styles.logInButton}
+            style={styles.googleButtonContainer}
             activeOpacity={0.8}
-            onPress={() => signIn()}
+            onPress={handleGoogleLogin}
           >
-            <Text style={styles.logInText}>Sign in</Text>
+            <GoogleIcon />
+            <Text style={styles.googleSignText}>Sign in with Google</Text>
           </TouchableOpacity>
+          <View style={styles.separator}>
+            <View style={styles.lineStyle} />
+            <Text style={styles.separatorText}>Or</Text>
+            <View style={styles.lineStyle} />
+          </View>
+
+          <View style={styles.formContainer}>
+            <View style={styles.inputForm}>
+              <TextInput
+                placeholder='Please enter your email'
+                onChangeText={(text) => handleChangeText('email', text)}
+              />
+            </View>
+            <View style={styles.inputForm}>
+              <TextInput
+                placeholder='Please enter your password'
+                onChangeText={(text) => handleChangeText('password', text)}
+              />
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              >
+                <AntDesign
+                  name={passwordVisible ? 'eye' : 'eyeo'}
+                  size={24}
+                  color='black'
+                />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              style={styles.logInButton}
+              activeOpacity={0.8}
+              onPress={handleLogin}
+            >
+              <Text style={styles.logInText}>Sign in</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </View>

@@ -18,6 +18,7 @@ export type AuthStackParams = {
 export type AppStackParams = {
   TabNavigator: undefined;
   AuthStack: undefined;
+  OnBoarding: undefined;
 };
 
 export type ProfileStackParams = {
@@ -28,4 +29,25 @@ export type ProfileStackParams = {
 export type WishListStackParams = {
   WishList: undefined;
   EventDetails: undefined;
+};
+
+export type AuthAction =
+  | { type: 'signIn'; payload: { uid: string; displayName: string } }
+  | { type: 'loggingIn'; payload: boolean }
+  | { type: 'signInError'; payload: { error: boolean; errorMsg: string } }
+  | { type: 'hideOnBoarding' };
+
+export type AuthState = {
+  uid: string;
+  userName: string;
+  isLoading: boolean;
+  error: boolean;
+  errorMessage: string;
+  isLoggedIn: boolean;
+  onBoarding: boolean;
+};
+
+export type GoogleConfig = {
+  iosClientId: string;
+  androidClientId: string;
 };
