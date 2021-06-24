@@ -42,6 +42,14 @@ export const authReducer = (
         ...state,
         onBoarding: false,
       };
+    case 'LOG_OUT':
+      return {
+        ...state,
+        uid: '',
+        userName: '',
+        isLoggedIn: false,
+        onBoarding: false,
+      };
     default:
       return state;
   }

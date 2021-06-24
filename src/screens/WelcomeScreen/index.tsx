@@ -1,13 +1,14 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
 import LottieImage from '../../../assets/WelcomeScreen/LottieImage';
 import { disableOnBoarding } from '../../store/actions/authActions';
 import styles from './styles';
 
 export const WelcomeScreen = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Dispatch<any>>();
   const hideOnBoarding = () => {
     dispatch(disableOnBoarding());
   };

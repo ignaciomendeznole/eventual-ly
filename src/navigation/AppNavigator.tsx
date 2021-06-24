@@ -1,5 +1,5 @@
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { WelcomeScreen } from '../screens/WelcomeScreen';
 import { AppStackParams } from '../types/types';
@@ -14,7 +14,6 @@ export const AppNavigator = () => {
   const { isLoggedIn, onBoarding } = useSelector(
     (state: any) => state.authReducer
   );
-  console.log(isLoggedIn);
 
   if (!isLoggedIn) {
     return (

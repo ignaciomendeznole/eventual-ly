@@ -35,7 +35,8 @@ export type AuthAction =
   | { type: 'signIn'; payload: { uid: string; displayName: string } }
   | { type: 'loggingIn'; payload: boolean }
   | { type: 'signInError'; payload: { error: boolean; errorMsg: string } }
-  | { type: 'hideOnBoarding' };
+  | { type: 'hideOnBoarding' }
+  | { type: 'LOG_OUT' };
 
 export type AuthState = {
   uid: string;

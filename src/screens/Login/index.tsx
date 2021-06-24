@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import LottieImage from '../../../assets/Login/Lottie';
 import GoogleIcon from '../../../assets/Login/Google';
 import * as GoogleSignin from 'expo-google-sign-in';
-import firebase from '../../database/firebase';
 import { AntDesign } from '@expo/vector-icons';
 import {
   View,
@@ -37,13 +36,12 @@ export const LoginScreen = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleLogin = () => {
-    dispatch(startLoginEmailPassword(credentials.email, credentials.password));
-  };
+  // const handleLogin = () => {
+  //   dispatch(startLoginEmailPassword(credentials.email, credentials.password));
+  // };
 
   const handleGoogleLogin = () => {
-    const response = dispatch(startGoogleLogin());
-    console.log(error);
+    dispatch(startGoogleLogin());
   };
 
   return (
@@ -101,7 +99,7 @@ export const LoginScreen = () => {
             <TouchableOpacity
               style={styles.logInButton}
               activeOpacity={0.8}
-              onPress={handleLogin}
+              // onPress={handleLogin}
             >
               <Text style={styles.logInText}>Sign in</Text>
             </TouchableOpacity>

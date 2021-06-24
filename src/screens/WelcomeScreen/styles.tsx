@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
     padding: 50,
   },
   introText: {
-    fontFamily: 'poppins-regular',
-    fontSize: 25,
+    fontFamily: 'poppins-bold',
+    fontSize: 30,
   },
   textContainer: {
     justifyContent: 'center',

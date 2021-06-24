@@ -52,3 +52,7 @@ export const logInError = (error: any) => ({
 export const disableOnBoarding = () => ({
   type: 'hideOnBoarding',
 });
+
+export const logOut = () => ({
+  type: 'LOG_OUT',
+});
