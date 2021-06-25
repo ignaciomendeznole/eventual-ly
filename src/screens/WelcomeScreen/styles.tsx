@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../constants/colors';
+import fonts from '../../constants/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -6,7 +8,7 @@ const styles = StyleSheet.create({
     padding: 50,
   },
   introText: {
-    fontFamily: 'poppins-bold',
+    fontFamily: fonts.poppinsRegular,
     fontSize: 30,
   },
   textContainer: {
@@ -23,11 +25,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 70,
-    backgroundColor: '#000',
+    backgroundColor: colors.BLACK,
     paddingVertical: 10,
     borderRadius: 10,
 
-    shadowColor: '#000',
+    shadowColor: colors.BLACK,
     shadowOffset: {
       width: 5,
       height: 5,
@@ -38,8 +40,8 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   buttonText: {
-    color: 'white',
-    fontFamily: 'poppins-regular',
+    color: colors.WHITE,
+    fontFamily: fonts.poppinsRegular,
     fontSize: 24,
   },
 });

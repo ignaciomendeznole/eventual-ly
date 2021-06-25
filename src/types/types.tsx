@@ -52,3 +52,12 @@ export type GoogleConfig = {
   iosClientId: string;
   androidClientId: string;
 };
+
+export type Event = {
+  id: string;
+  name: string;
+  date: string;
+  location: string;
+  generalLocation: string;
+  backdropImage: string;
+};

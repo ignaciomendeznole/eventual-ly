@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../constants/colors';
+import fonts from '../../constants/fonts';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,11 +24,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
-    backgroundColor: '#EAEAEA',
+    backgroundColor: colors.GRAY,
     paddingVertical: 10,
     borderRadius: 10,
     marginHorizontal: 10,
-    shadowColor: '#000',
+    shadowColor: colors.BLACK,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
   },
   googleSignText: {
     marginLeft: 15,
-    fontFamily: 'poppins-bold',
+    fontFamily: fonts.poppinsBold,
     fontSize: 17,
   },
   separator: {
@@ -52,9 +54,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#cacaca',
   },
   separatorText: {
-    fontFamily: 'poppins-regular',
+    fontFamily: fonts.poppinsRegular,
     fontSize: 17,
-    color: '#bdbdbd',
+    color: '#cacaca',
     marginHorizontal: 8,
   },
   formContainer: {
@@ -90,9 +92,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   logInText: {
-    fontFamily: 'poppins-bold',
+    fontFamily: fonts.poppinsBold,
     fontSize: 17,
-    color: '#fff',
+    color: colors.WHITE,
   },
 });
 
