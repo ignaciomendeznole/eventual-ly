@@ -5,6 +5,7 @@ import colors from '../../constants/colors';
 const styles = StyleSheet.create({
   container: {
     borderRadius: 15,
+    marginTop: 7,
     paddingHorizontal: 15,
     paddingVertical: 15,
     backgroundColor: 'white',

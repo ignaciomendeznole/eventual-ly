@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   assistantsText: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: fonts.poppinsBold,
     marginLeft: 15,
     marginRight: 25,
@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   assistantsContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: -5,
+    marginLeft: 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 7,
     },
-    shadowOpacity: 0.29,
+    shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 7,
   },
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
+    borderWidth: 2,
+    borderColor: colors.WHITE,
+    marginLeft: -5,
 
     elevation: 7,
   },

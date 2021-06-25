@@ -3,7 +3,7 @@ import * as Google from 'expo-google-app-auth';
 export const startLoginEmailPassword = (email: string, password: string) => {
   return (dispatch: any) => {
     setTimeout(() => {
-      dispatch(logInSuccess(123, 'Ignacio'));
+      dispatch(logInSuccess('123', 'Ignacio'));
     }, 3500);
   };
 };
@@ -28,7 +28,10 @@ export const startGoogleLogin = () => {
   };
 };
 
-export const logInSuccess = (uid: any, displayName: any) => ({
+export const logInSuccess = (
+  uid: string | null,
+  displayName: string | undefined
+) => ({
   type: 'signIn',
   payload: {
     uid,
