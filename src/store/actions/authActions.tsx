@@ -15,6 +15,8 @@ export const startGoogleLogin = () => {
       const response = await Google.logInAsync({
         iosClientId:
           '694943136654-ekh0ri3fglu4se0jnrus2b6920m0tno8.apps.googleusercontent.com/',
+        androidClientId:
+          '694943136654-6hqfkd8onffp4mbmisjr4emgb019r5i4.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
       });
       if (response.type === 'success') {
