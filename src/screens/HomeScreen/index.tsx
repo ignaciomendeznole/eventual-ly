@@ -6,8 +6,11 @@ import { EventCard } from '../../components/EventCard';
 import Carousel from 'react-native-snap-carousel';
 import styles from './styles';
 import { events } from '../../constants/EventsDummy';
+import { StackScreenProps } from '@react-navigation/stack';
 
-export const HomeScreen = () => {
+interface Props extends StackScreenProps<any, any> {}
+
+export const HomeScreen = ({ navigation }: Props) => {
   const { width } = Dimensions.get('window');
   return (
     <View style={styles.container}>
@@ -17,7 +20,9 @@ export const HomeScreen = () => {
         <Text style={styles.subtitle}> Your Events </Text>
         <Carousel
           data={events}
-          renderItem={({ item }) => <EventCard event={item} />}
+          renderItem={({ item }) => (
+            <EventCard event={item} navigation={navigation} />
+          )}
           sliderWidth={width}
           itemWidth={285}
           layout={'default'}

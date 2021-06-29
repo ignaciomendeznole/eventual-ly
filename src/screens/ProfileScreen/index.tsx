@@ -10,7 +10,9 @@ export const ProfileScreen = () => {
   };
   return (
     <View>
-      <Text>Profile Screen</Text>
+      <Text style={{ marginTop: 300, alignSelf: 'center', fontSize: 30 }}>
+        Profile Screen
+      </Text>
       <Button title='Log Out' onPress={signOut} />
     </View>
   );

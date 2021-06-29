@@ -7,7 +7,7 @@ export type BottomTabParams = {
 
 export type HomeStackParams = {
   HomeScreen: undefined;
-  EventDetailsScreen: undefined;
+  EventDetailsScreen: { event: Event };
 };
 
 export type AuthStackParams = {
@@ -55,9 +55,13 @@ export type GoogleConfig = {
 
 export type Event = {
   id: string;
+  description: string;
   name: string;
   date: string;
   location: string;
   generalLocation: string;
   backdropImage: string;
+  latitude: number;
+  longitude: number;
+  price: string;
 };

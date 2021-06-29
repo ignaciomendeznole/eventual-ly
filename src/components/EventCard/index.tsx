@@ -13,12 +13,16 @@ import { assistants } from '../../constants/AssistantsDummy';
 
 interface EventCardProps {
   event: Event;
+  navigation: any;
 }
 
-export const EventCard = ({ event }: EventCardProps) => {
+export const EventCard = ({ event, navigation }: EventCardProps) => {
   const { name, location, generalLocation, date, backdropImage } = event;
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate('EventDetailsScreen', { event })}
+    >
       <View style={styles.container}>
         <ImageBackground
           source={{
