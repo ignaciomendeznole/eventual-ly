@@ -1,19 +1,31 @@
 import React from 'react';
+import firebase from '../database/firebase';
+import { useDispatch } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { WelcomeScreen } from '../screens/WelcomeScreen';
 import { AppStackParams } from '../types/types';
 import { AuthStackNavigator } from './AuthStackNavigator';
 import { BottomTabNavigator } from './TabNavigator';
+import { useEffect } from 'react';
+import { logInSuccess } from '../store/actions/authActions';
 
 const Stack = createStackNavigator<AppStackParams>();
 
 export const AppNavigator = () => {
-  //Replace with Redux state
+  const dispatch = useDispatch();
 
   const { isLoggedIn, onBoarding } = useSelector(
     (state: any) => state.authReducer
   );
+
+  useEffect(() => {
+    firebase.firebase.auth().onAuthStateChanged((user: any) => {
+      if (user) {
+        dispatch(logInSuccess(user.uid, user.displayName));
+      }
+    });
+  }, []);
 
   if (!isLoggedIn) {
     return (

@@ -31,6 +31,7 @@ export const authReducer = (
         error: action.payload.error,
         errorMessage: action.payload.errorMsg,
         isLoading: false,
+        isLoggedIn: false,
       };
     case 'loggingIn':
       return {

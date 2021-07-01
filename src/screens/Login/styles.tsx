@@ -96,6 +96,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: colors.WHITE,
   },
+  textInput: {
+    marginLeft: 5,
+    fontFamily: fonts.poppinsRegular,
+  },
 });
 
 export default styles;

@@ -1,10 +1,17 @@
 import * as Google from 'expo-google-app-auth';
+import firebase from '../../database/firebase';
 
 export const startLoginEmailPassword = (email: string, password: string) => {
-  return (dispatch: any) => {
-    setTimeout(() => {
-      dispatch(logInSuccess('123', 'Ignacio'));
-    }, 3500);
+  return async (dispatch: any) => {
+    try {
+      const response = await firebase.firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      dispatch(logInSuccess(response.user!.uid, response.user!.displayName!));
+    } catch (error) {
+      console.log(error);
+      dispatch(logInError(error));
+    }
   };
 };
 
@@ -50,7 +57,7 @@ export const logInError = (error: any) => ({
   type: 'signInError',
   payload: {
     error: error,
-    errorMsg: 'No se ha podido realizar el login',
+    errorMsg: 'Invalid login, please try again',
   },
 });
 
