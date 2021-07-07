@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import LottieImage from '../../../assets/Login/Lottie';
 import GoogleIcon from '../../../assets/Login/Google';
-import * as GoogleSignin from 'expo-google-sign-in';
 import { AntDesign } from '@expo/vector-icons';
 import {
   View,
@@ -18,15 +17,11 @@ import {
   startGoogleLogin,
   startLoginEmailPassword,
 } from '../../store/actions/authActions';
+import { Credentials, Props } from '../../types/types';
 
-export type Credentials = {
-  email: string;
-  password: string;
-};
-
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }: Props) => {
   const dispatch = useDispatch();
-  const error = useSelector((state: any) => state.authReducer);
+  const { error } = useSelector((state: any) => state.authReducer);
   const [credentials, setCredentials] = useState<Credentials>({
     email: '',
     password: '',
@@ -38,7 +33,6 @@ export const LoginScreen = () => {
   };
 
   const handleLogin = () => {
-    // dispatch(startLoginEmailPassword(credentials.email, credentials.password));
     dispatch(startLoginEmailPassword(credentials.email, credentials.password));
   };
 
@@ -76,15 +70,26 @@ export const LoginScreen = () => {
             </View>
 
             <View style={styles.formContainer}>
-              <View style={styles.inputForm}>
+              <View
+                style={{
+                  ...styles.inputForm,
+                  borderColor: error ? '#eb7171' : '#b6b6b6',
+                }}
+              >
                 <TextInput
                   placeholder='Please enter your email'
+                  keyboardType='email-address'
                   autoCapitalize='none'
                   onChangeText={(text) => handleChangeText('email', text)}
                   style={styles.textInput}
                 />
               </View>
-              <View style={styles.inputForm}>
+              <View
+                style={{
+                  ...styles.inputForm,
+                  borderColor: error ? '#eb7171' : '#b6b6b6',
+                }}
+              >
                 <TextInput
                   placeholder='Please enter your password'
                   secureTextEntry={passwordVisible ? false : true}
@@ -103,12 +108,22 @@ export const LoginScreen = () => {
                   />
                 </TouchableOpacity>
               </View>
+              <View style={styles.signUpContainer}>
+                <Text style={styles.signUpText}>Don't have an account? </Text>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => navigation.navigate('SignUpScreen')}
+                >
+                  <Text style={styles.signUpBtn}>Sign Up</Text>
+                </TouchableOpacity>
+              </View>
+
               <TouchableOpacity
                 style={styles.logInButton}
                 activeOpacity={0.8}
                 onPress={handleLogin}
               >
-                <Text style={styles.logInText}>Sign in</Text>
+                <Text style={styles.logInText}>Sign In</Text>
               </TouchableOpacity>
             </View>
           </View>

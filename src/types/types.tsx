@@ -1,3 +1,5 @@
+import { StackScreenProps } from '@react-navigation/stack';
+
 export type BottomTabParams = {
   HomeStack: undefined;
   MyTickets: undefined;
@@ -31,12 +33,35 @@ export type WishListStackParams = {
   EventDetails: undefined;
 };
 
+export type SignInSuccess = {
+  readonly type: 'SIGN_IN';
+  payload: { uid: string; displayName: string };
+};
+
+export type LoadingSignIn = {
+  readonly type: 'SIGN_IN_LOADING';
+  payload: boolean;
+};
+
+export type SignInError = {
+  readonly type: 'ERROR_SIGN_IN';
+  payload: { error: boolean; errorMsg: string };
+};
+
+export type LogOut = {
+  readonly type: 'LOG_OUT';
+};
+
+export type HideOnBoarding = {
+  readonly type: 'HIDE_ONBOARDING';
+};
+
 export type AuthAction =
-  | { type: 'signIn'; payload: { uid: string; displayName: string } }
-  | { type: 'loggingIn'; payload: boolean }
-  | { type: 'signInError'; payload: { error: boolean; errorMsg: string } }
-  | { type: 'hideOnBoarding' }
-  | { type: 'LOG_OUT' };
+  | SignInSuccess
+  | LoadingSignIn
+  | SignInError
+  | LogOut
+  | HideOnBoarding;
 
 export type AuthState = {
   uid: string;
@@ -46,6 +71,13 @@ export type AuthState = {
   errorMessage: string;
   isLoggedIn: boolean;
   onBoarding: boolean;
+};
+
+export type UserState = {
+  givenName: string;
+  familyName: string;
+  profilePicture: string;
+  currentLocation: string;
 };
 
 export type GoogleConfig = {
@@ -65,3 +97,37 @@ export type Event = {
   longitude: number;
   price: string;
 };
+
+export type SignUpInformation = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
+
+export type Credentials = {
+  email: string;
+  password: string;
+};
+
+export type UpdateUserName = {
+  readonly type: 'SET_GIVEN_NAME';
+  payload: string;
+};
+
+export type UpdateFamilyName = {
+  readonly type: 'SET_FAMILY_NAME';
+  payload: string;
+};
+
+export type UpdateUserLocation = {
+  readonly type: 'SET_CURRENT_LOCATION';
+  payload: string;
+};
+
+export type UserActions =
+  | UpdateUserName
+  | UpdateFamilyName
+  | UpdateUserLocation;
+
+export interface Props extends StackScreenProps<any, any> {}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import firebase from '../database/firebase';
 import { useDispatch } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,25 +7,42 @@ import { WelcomeScreen } from '../screens/WelcomeScreen';
 import { AppStackParams } from '../types/types';
 import { AuthStackNavigator } from './AuthStackNavigator';
 import { BottomTabNavigator } from './TabNavigator';
-import { useEffect } from 'react';
-import { logInSuccess } from '../store/actions/authActions';
+import { logInSuccess, logInError } from '../store/actions/authActions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator<AppStackParams>();
 
 export const AppNavigator = () => {
   const dispatch = useDispatch();
 
-  const { isLoggedIn, onBoarding } = useSelector(
-    (state: any) => state.authReducer
-  );
+  const [onBoarding, setOnBoarding] = useState<boolean>(false);
+
+  const { isLoggedIn } = useSelector((state: any) => state.authReducer);
 
   useEffect(() => {
-    firebase.firebase.auth().onAuthStateChanged((user: any) => {
+    firebase.firebase.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
         dispatch(logInSuccess(user.uid, user.displayName));
+      } else {
+        dispatch(logInError('Could not fetch user'));
       }
     });
   }, []);
+
+  useEffect(() => {
+    getWelcomeScreen();
+  });
+
+  const getWelcomeScreen = async () => {
+    try {
+      const data = await AsyncStorage.getItem('welcomeScreen');
+      if (data) {
+        setOnBoarding(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (!isLoggedIn) {
     return (

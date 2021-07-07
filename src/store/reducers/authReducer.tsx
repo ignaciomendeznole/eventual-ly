@@ -15,15 +15,17 @@ export const authReducer = (
   action: AuthAction
 ) => {
   switch (action.type) {
-    case 'signIn':
+    case 'SIGN_IN':
       return {
         ...state,
         uid: action.payload.uid,
         userName: action.payload.displayName,
         isLoggedIn: true,
         onBoarding: true,
+        error: false,
+        errorMessage: '',
       };
-    case 'signInError':
+    case 'ERROR_SIGN_IN':
       return {
         ...state,
         uid: null,
@@ -33,12 +35,14 @@ export const authReducer = (
         isLoading: false,
         isLoggedIn: false,
       };
-    case 'loggingIn':
+    case 'SIGN_IN_LOADING':
       return {
         ...state,
         isLoading: action.payload,
+        error: false,
+        errorMessage: '',
       };
-    case 'hideOnBoarding':
+    case 'HIDE_ONBOARDING':
       return {
         ...state,
         onBoarding: false,
@@ -50,6 +54,8 @@ export const authReducer = (
         userName: '',
         isLoggedIn: false,
         onBoarding: false,
+        error: false,
+        errorMessage: '',
       };
     default:
       return state;

@@ -60,15 +60,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   formContainer: {
-    marginTop: 5,
+    marginTop: 0,
   },
   inputForm: {
     borderWidth: 3,
-    borderColor: '#b6b6b6',
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 5,
-    marginVertical: 10,
+    marginVertical: 7,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 12,
     backgroundColor: '#000',
     paddingVertical: 10,
     borderRadius: 10,
@@ -99,6 +98,21 @@ const styles = StyleSheet.create({
   textInput: {
     marginLeft: 5,
     fontFamily: fonts.poppinsRegular,
+  },
+  signUpContainer: {
+    alignItems: 'center',
+    marginTop: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  signUpText: {
+    fontSize: 15,
+    fontFamily: fonts.poppinsRegular,
+  },
+  signUpBtn: {
+    fontSize: 15,
+    color: colors.REDPALETTE,
+    fontFamily: fonts.poppinsBold,
   },
 });
 

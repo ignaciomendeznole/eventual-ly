@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { HomeStackParams } from '../../types/types';
@@ -20,6 +21,7 @@ export const EventDetails = ({ route }: Props) => {
   const { event } = route.params;
   return (
     <View style={styles.container}>
+      <StatusBar barStyle='light-content' />
       <ImageBackground
         source={{ uri: event.backdropImage }}
         style={styles.imageBackground}
