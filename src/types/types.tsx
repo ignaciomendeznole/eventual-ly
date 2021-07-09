@@ -12,6 +12,10 @@ export type HomeStackParams = {
   EventDetailsScreen: { event: Event };
 };
 
+export type MyTicketsStackParams = {
+  MyTickets: undefined;
+};
+
 export type AuthStackParams = {
   LoginScreen: undefined;
   SignUpScreen: undefined;
@@ -129,5 +133,15 @@ export type UserActions =
   | UpdateUserName
   | UpdateFamilyName
   | UpdateUserLocation;
+
+export type Ticket = {
+  id: string;
+  name: string;
+  backdropImage: string;
+  location: string;
+  date: string;
+  priceTag: string;
+  ticketLink: string;
+};
 
 export interface Props extends StackScreenProps<any, any> {}

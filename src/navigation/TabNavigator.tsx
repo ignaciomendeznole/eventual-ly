@@ -5,10 +5,10 @@ import { BottomTabParams } from '../types/types';
 import HomeIcon from '../../assets/TabBar/HomeIcon';
 import EventsIcon from '../../assets/TabBar/EventsIcon';
 import { HomeStackNavigator } from './HomeStackNavigator';
-import { MyTickets } from '../screens/MyTickets';
 import { StyleSheet, View, Animated } from 'react-native';
 import { ProfileStackNavigator } from './ProfileStackNavigator';
 import { SavedEventsNavigator } from './SavedEventsNavigator';
+import { MyTicketStackNavigator } from './MyTicketsStackNavigator';
 
 const TabNavigator = createBottomTabNavigator<BottomTabParams>();
 
@@ -59,7 +59,7 @@ export const BottomTabNavigator = () => {
       />
       <TabNavigator.Screen
         name='MyTickets'
-        component={MyTickets}
+        component={MyTicketStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.iconContainer}>
