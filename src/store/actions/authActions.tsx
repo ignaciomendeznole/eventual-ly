@@ -6,6 +6,10 @@ import { AuthAction, SignUpInformation } from '../../types/types';
 
 export const startLoginEmailPassword = (email: string, password: string) => {
   return async (dispatch: Dispatch<AuthAction>) => {
+    dispatch({
+      type: 'SIGN_IN_LOADING',
+      payload: true,
+    });
     try {
       const response = await firebase.firebase
         .auth()
@@ -45,6 +49,10 @@ export const hideWelcomeScreen = () => {
 
 export const signUpAction = (email: string, password: string) => {
   return async (dispatch: Dispatch<AuthAction>) => {
+    dispatch({
+      type: 'SIGN_IN_LOADING',
+      payload: true,
+    });
     try {
       const response = await firebase.firebase
         .auth()
@@ -133,6 +141,6 @@ export const logInError = (error: any) => ({
   type: 'signInError',
   payload: {
     error: true,
-    errorMsg: error,
+    errorMsg: error.message,
   },
 });

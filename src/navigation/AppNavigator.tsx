@@ -9,6 +9,7 @@ import { AuthStackNavigator } from './AuthStackNavigator';
 import { BottomTabNavigator } from './TabNavigator';
 import { logInSuccess, logInError } from '../store/actions/authActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AppState } from '../store/reducers';
 
 const Stack = createStackNavigator<AppStackParams>();
 
@@ -17,7 +18,7 @@ export const AppNavigator = () => {
 
   const [onBoarding, setOnBoarding] = useState<boolean>(false);
 
-  const { isLoggedIn } = useSelector((state: any) => state.authReducer);
+  const { isLoggedIn } = useSelector((state: AppState) => state.authReducer);
 
   useEffect(() => {
     firebase.firebase.auth().onAuthStateChanged(async (user: any) => {

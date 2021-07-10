@@ -15,12 +15,13 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { SignUpInformation } from '../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAction } from '../../store/actions/authActions';
+import { AppState } from '../../store/reducers';
 
 interface Props extends StackScreenProps<any, any> {}
 
 export const SignUpScreen = ({ navigation }: Props) => {
   const dispatch = useDispatch();
-  const { errorMessage } = useSelector((state: any) => state.authReducer);
+  const { errorMessage } = useSelector((state: AppState) => state.authReducer);
 
   const [signUpInfo, setSignUpInfo] = useState<SignUpInformation>({
     firstName: '',
@@ -136,7 +137,7 @@ export const SignUpScreen = ({ navigation }: Props) => {
               </View>
               {errorMessage ? (
                 <Text style={{ alignSelf: 'center', color: 'red' }}>
-                  {errorMessage.message}
+                  {errorMessage}
                 </Text>
               ) : null}
             </View>
