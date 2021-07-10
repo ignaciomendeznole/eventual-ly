@@ -24,6 +24,7 @@ export const authReducer = (
         onBoarding: true,
         error: false,
         errorMessage: '',
+        isLoading: false,
       };
     case 'ERROR_SIGN_IN':
       return {
@@ -56,6 +57,7 @@ export const authReducer = (
         onBoarding: false,
         error: false,
         errorMessage: '',
+        isLoading: false,
       };
     default:
       return state;

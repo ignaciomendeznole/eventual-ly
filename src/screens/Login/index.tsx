@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,10 +19,13 @@ import {
   startLoginEmailPassword,
 } from '../../store/actions/authActions';
 import { Credentials, Props } from '../../types/types';
+import { AppState } from '../../store/reducers';
 
 export const LoginScreen = ({ navigation }: Props) => {
-  const dispatch = useDispatch();
-  const { error } = useSelector((state: any) => state.authReducer);
+  const dispatch = useDispatch<AppDispatch>();
+  const { error, isLoading } = useSelector(
+    (state: AppState) => state.authReducer
+  );
   const [credentials, setCredentials] = useState<Credentials>({
     email: '',
     password: '',
@@ -123,7 +127,11 @@ export const LoginScreen = ({ navigation }: Props) => {
                 activeOpacity={0.8}
                 onPress={handleLogin}
               >
-                <Text style={styles.logInText}>Sign In</Text>
+                {isLoading ? (
+                  <ActivityIndicator />
+                ) : (
+                  <Text style={styles.logInText}>Sign In</Text>
+                )}
               </TouchableOpacity>
             </View>
           </View>
