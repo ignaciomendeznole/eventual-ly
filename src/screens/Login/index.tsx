@@ -22,7 +22,7 @@ import { Credentials, Props } from '../../types/types';
 import { AppState } from '../../store/reducers';
 
 export const LoginScreen = ({ navigation }: Props) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const { error, isLoading } = useSelector(
     (state: AppState) => state.authReducer
   );
