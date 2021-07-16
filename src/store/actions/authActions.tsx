@@ -2,7 +2,8 @@ import * as Google from 'expo-google-app-auth';
 import { Dispatch } from 'react';
 import firebase from '../../database/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthAction, SignUpInformation } from '../../types/types';
+import { AuthAction } from '../../types/types';
+import clients from '../../../config.json';
 
 export const startLoginEmailPassword = (email: string, password: string) => {
   return async (dispatch: Dispatch<AuthAction>) => {
@@ -84,10 +85,8 @@ export const startGoogleLogin = () => {
     });
     try {
       const response = await Google.logInAsync({
-        iosClientId:
-          '694943136654-ekh0ri3fglu4se0jnrus2b6920m0tno8.apps.googleusercontent.com/',
-        androidClientId:
-          '694943136654-6hqfkd8onffp4mbmisjr4emgb019r5i4.apps.googleusercontent.com',
+        iosClientId: clients.android_ios_keys.ios,
+        androidClientId: clients.android_ios_keys.android,
         scopes: ['profile', 'email'],
       });
       if (response.type === 'success') {
@@ -130,7 +129,7 @@ export const logInSuccess = (
   uid: string | null,
   displayName: string | undefined
 ) => ({
-  type: 'signIn',
+  type: 'SIGN_IN',
   payload: {
     uid,
     displayName,
@@ -138,7 +137,7 @@ export const logInSuccess = (
 });
 
 export const logInError = (error: any) => ({
-  type: 'signInError',
+  type: 'ERROR_SIGN_IN',
   payload: {
     error: true,
     errorMsg: error.message,

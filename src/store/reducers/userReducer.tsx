@@ -10,16 +10,20 @@ const initialState: UserState = {
 export const userReducer = (
   state: UserState = initialState,
   action: UserActions
-) => {
+): UserState => {
   switch (action.type) {
     case 'SET_CURRENT_LOCATION':
       return {
         ...state,
         currentLocation: action.payload,
       };
-    default:
+    case 'SET_GIVEN_NAME':
       return {
-        state,
+        ...state,
+        givenName: action.payload,
       };
+
+    default:
+      return state;
   }
 };

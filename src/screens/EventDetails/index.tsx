@@ -1,5 +1,5 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE, MarkerAnimated } from 'react-native-maps';
 import {
   View,
@@ -9,16 +9,45 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { HomeStackParams } from '../../types/types';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Event, HomeStackParams } from '../../types/types';
 import styles from './styles';
 import colors from '../../constants/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addToWishList,
+  removeFromWishList,
+} from '../../store/actions/eventActions';
+import { AppState } from '../../store/reducers';
 
 interface Props
   extends StackScreenProps<HomeStackParams, 'EventDetailsScreen'> {}
 
 export const EventDetails = ({ route }: Props) => {
+  const { wishList } = useSelector((state: AppState) => state.eventsReducer);
+  const [liked, setLiked] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const { event } = route.params;
+  const addEventToWishList = () => {
+    dispatch(addToWishList(event));
+  };
+
+  const checkIfLiked = () => {
+    if (wishList.includes(event)) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+  };
+
+  const removeEventFromWishList = () => {
+    dispatch(removeFromWishList(event));
+  };
+  useEffect(() => {
+    checkIfLiked();
+    console.log(wishList);
+  }, [wishList]);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle='light-content' />
@@ -43,6 +72,23 @@ export const EventDetails = ({ route }: Props) => {
           </View>
         </View>
       </ImageBackground>
+      <View style={{ position: 'absolute', top: 60, left: 20 }}>
+        <TouchableOpacity>
+          <AntDesign name='arrowleft' size={32} color='white' />
+        </TouchableOpacity>
+      </View>
+      <View style={{ position: 'absolute', top: 60, right: 20 }}>
+        {!liked ? (
+          <TouchableOpacity onPress={addEventToWishList}>
+            <AntDesign name='hearto' size={32} color='white' />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={removeEventFromWishList}>
+            <AntDesign name='heart' size={32} color='white' />
+          </TouchableOpacity>
+        )}
+      </View>
+
       <ScrollView>
         <View style={styles.marginContainer}>
           {/* Event Details */}
