@@ -45,7 +45,6 @@ export const EventDetails = ({ route }: Props) => {
   };
   useEffect(() => {
     checkIfLiked();
-    console.log(wishList);
   }, [wishList]);
 
   return (

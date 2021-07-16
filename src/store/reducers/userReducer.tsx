@@ -22,7 +22,6 @@ export const userReducer = (
         ...state,
         givenName: action.payload,
       };
-
     default:
       return state;
   }
