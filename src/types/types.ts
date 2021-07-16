@@ -145,3 +145,59 @@ export type Ticket = {
 };
 
 export interface Props extends StackScreenProps<any, any> {}
+
+export type EventsAction =
+  | AddEventAction
+  | GetEventsAction
+  | AddEventSuccess
+  | AddEventError
+  | GetEventsError
+  | GetEventsSuccess
+  | AddEventToWishList
+  | RemoveEventFromWishList;
+
+export type AddEventAction = {
+  readonly type: 'ADD_EVENT';
+  payload: boolean;
+};
+
+export type AddEventSuccess = {
+  readonly type: 'ADD_EVENT_SUCCESS';
+  payload: Event;
+};
+
+export type AddEventError = {
+  readonly type: 'ADD_EVENT_ERROR';
+  payload: boolean;
+};
+
+export type GetEventsAction = {
+  readonly type: 'GET_EVENTS';
+  payload: boolean;
+};
+
+export type GetEventsSuccess = {
+  readonly type: 'GET_EVENTS_SUCCESS';
+  payload: Event[];
+};
+export type GetEventsError = {
+  readonly type: 'GET_EVENTS_ERROR';
+  payload: boolean;
+};
+
+export type AddEventToWishList = {
+  readonly type: 'ADD_TO_WISHLIST';
+  payload: Event;
+};
+
+export type RemoveEventFromWishList = {
+  readonly type: 'REMOVE_FROM_WISHLIST';
+  payload: Event;
+};
+
+export type EventState = {
+  isLoading: boolean;
+  events: Event[];
+  error: boolean;
+  wishList: Event[];
+};

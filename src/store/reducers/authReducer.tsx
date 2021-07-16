@@ -13,7 +13,7 @@ const initialState: AuthState = {
 export const authReducer = (
   state: AuthState = initialState,
   action: AuthAction
-) => {
+): AuthState => {
   switch (action.type) {
     case 'SIGN_IN':
       return {
@@ -29,8 +29,8 @@ export const authReducer = (
     case 'ERROR_SIGN_IN':
       return {
         ...state,
-        uid: null,
-        userName: null,
+        uid: '',
+        userName: '',
         error: action.payload.error,
         errorMessage: action.payload.errorMsg,
         isLoading: false,
