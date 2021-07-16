@@ -23,7 +23,7 @@ import { AppState } from '../../store/reducers';
 interface Props
   extends StackScreenProps<HomeStackParams, 'EventDetailsScreen'> {}
 
-export const EventDetails = ({ route }: Props) => {
+export const EventDetails = ({ route, navigation }: Props) => {
   const { wishList } = useSelector((state: AppState) => state.eventsReducer);
   const [liked, setLiked] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -42,6 +42,9 @@ export const EventDetails = ({ route }: Props) => {
 
   const removeEventFromWishList = () => {
     dispatch(removeFromWishList(event));
+  };
+  const moveBack = () => {
+    navigation.goBack();
   };
   useEffect(() => {
     checkIfLiked();
@@ -72,7 +75,7 @@ export const EventDetails = ({ route }: Props) => {
         </View>
       </ImageBackground>
       <View style={{ position: 'absolute', top: 60, left: 20 }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={moveBack} activeOpacity={0.7}>
           <AntDesign name='arrowleft' size={32} color='white' />
         </TouchableOpacity>
       </View>

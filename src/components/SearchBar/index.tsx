@@ -3,11 +3,19 @@ import { View, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import styles from './styles';
 
-export const SearchBar = () => {
+export type SearchBarProps = {
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const SearchBar = ({ setKeyword }: SearchBarProps) => {
   return (
     <View style={styles.container}>
       <Feather name='search' size={24} color='#c6c6c6' />
-      <TextInput placeholder='Search for Events' style={styles.textInput} />
+      <TextInput
+        placeholder='Search for Events'
+        style={styles.textInput}
+        onChangeText={(text) => setKeyword(text)}
+      />
     </View>
   );
 };
