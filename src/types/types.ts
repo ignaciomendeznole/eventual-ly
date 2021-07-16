@@ -34,7 +34,7 @@ export type ProfileStackParams = {
 
 export type WishListStackParams = {
   WishList: undefined;
-  EventDetails: undefined;
+  EventDetails: { event: Event };
 };
 
 export type SignInSuccess = {

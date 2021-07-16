@@ -13,7 +13,7 @@ export const events: Event[] = [
       'Lorem ipsum dolor sit amet consectetur, adipiscing elit luctus leo, lacinia erat venenatis elementum. Varius cubilia ridiculus orci fames tempus ornare potenti maecenas litora, ultrices dignissim vitae himenaeos tempor mattis viverra aenean, pulvinar rhoncus massa fringilla leo facilisi est vivamus. Feugiat viverra pretium magna vulputate nibh malesuada arcu accumsan, netus sociosqu quisque aenean fermentum euismod facilisi risus pulvinar, placerat class purus tristique commodo hendrerit vitae.',
     generalLocation: 'Córdoba, AR',
     name: 'Oktoberfest',
-    price: '25U$D',
+    price: '25.99U$D',
   },
   {
     id: '2',
@@ -39,7 +39,7 @@ export const events: Event[] = [
     longitude: -58.44993,
     generalLocation: 'Buenos Aires, AR',
     name: 'Argentina vs Portugal',
-    price: '35U$D',
+    price: '35.99U$D',
     description:
       'Lorem ipsum dolor sit amet consectetur, adipiscing elit luctus leo, lacinia erat venenatis elementum. Varius cubilia ridiculus orci fames tempus ornare potenti maecenas litora, ultrices dignissim vitae himenaeos tempor mattis viverra aenean, pulvinar rhoncus massa fringilla leo facilisi est vivamus. Feugiat viverra pretium magna vulputate nibh malesuada arcu accumsan, netus sociosqu quisque aenean fermentum euismod facilisi risus pulvinar, placerat class purus tristique commodo hendrerit vitae.',
   },
@@ -52,7 +52,7 @@ export const events: Event[] = [
     longitude: -122.00893,
     generalLocation: 'Cupertino, CA',
     name: 'Apple WWDC 2021',
-    price: '50U$D',
+    price: '49.99U$D',
     description:
       'Lorem ipsum dolor sit amet consectetur, adipiscing elit luctus leo, lacinia erat venenatis elementum. Varius cubilia ridiculus orci fames tempus ornare potenti maecenas litora, ultrices dignissim vitae himenaeos tempor mattis viverra aenean, pulvinar rhoncus massa fringilla leo facilisi est vivamus. Feugiat viverra pretium magna vulputate nibh malesuada arcu accumsan, netus sociosqu quisque aenean fermentum euismod facilisi risus pulvinar, placerat class purus tristique commodo hendrerit vitae.',
   },
