@@ -23,7 +23,7 @@ import { AppState } from '../../store/reducers';
 interface Props
   extends StackScreenProps<HomeStackParams, 'EventDetailsScreen'> {}
 
-export const EventDetails = ({ route, navigation }: Props) => {
+export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
   const { wishList } = useSelector((state: AppState) => state.eventsReducer);
   const [liked, setLiked] = useState<boolean>(false);
   const dispatch = useDispatch();

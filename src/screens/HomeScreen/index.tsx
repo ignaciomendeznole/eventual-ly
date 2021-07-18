@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Dimensions, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import { HomeHeader } from '../../components/HomeHeader';
 import { SearchBar } from '../../components/SearchBar';
 import { EventCard } from '../../components/EventCard';
@@ -8,10 +14,11 @@ import styles from './styles';
 import { events } from '../../constants/EventsDummy';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useEventsSearch } from '../../hooks/useEventsSearch';
+import { AntDesign } from '@expo/vector-icons';
+import colors from '../../constants/colors';
+import { Props } from '../../types/types';
 
-interface Props extends StackScreenProps<any, any> {}
-
-export const HomeScreen = ({ navigation }: Props) => {
+export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = Dimensions.get('window');
   const [keyword, setKeyword] = useState<string>('');
   const { eventsFiltered } = useEventsSearch(keyword, events);
@@ -20,7 +27,20 @@ export const HomeScreen = ({ navigation }: Props) => {
       <ScrollView>
         <HomeHeader />
         <SearchBar setKeyword={setKeyword} />
-        <Text style={styles.subtitle}> Your Events </Text>
+        <View style={styles.subtitleContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.subtitle}> Your Events </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.plusIcon}
+            activeOpacity={0.6}
+            onPress={() => navigation.navigate('NewEventScreen')}
+          >
+            <AntDesign name='pluscircle' size={30} color={colors.REDPALETTE} />
+          </TouchableOpacity>
+        </View>
+
         <Carousel
           data={eventsFiltered}
           renderItem={({ item }) => (

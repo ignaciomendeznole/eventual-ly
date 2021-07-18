@@ -10,6 +10,7 @@ export type BottomTabParams = {
 export type HomeStackParams = {
   HomeScreen: undefined;
   EventDetailsScreen: { event: Event };
+  NewEventScreen: undefined;
 };
 
 export type MyTicketsStackParams = {
@@ -200,4 +201,39 @@ export type EventState = {
   events: Event[];
   error: boolean;
   wishList: Event[];
+};
+
+export type CreateEventProps = {
+  description: string;
+  name: string;
+  date: string;
+  location: string;
+  generalLocation: string;
+  backdropImage: string;
+  latitude: number;
+  longitude: number;
+  price: string;
+};
+
+export type ImagePickerResponse = {
+  cancelled: boolean;
+  height: number;
+  type: string;
+  uri: string;
+  width: number;
+};
+
+export type PredictionsType = {
+  description: string;
+  place_id: string;
+  reference: string;
+  matched_substrings: any[];
+  tructured_formatting: Object;
+  terms: Object[];
+  types: string[];
+};
+
+export type Coords = {
+  latitude: number;
+  longitude: number;
 };

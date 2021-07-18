@@ -10,11 +10,11 @@ interface WishListProps {
   removeEventFromWishList: (event: Event) => void;
 }
 
-export const WishListComponent = ({
+export const WishListComponent: React.FC<WishListProps> = ({
   event,
   onPress,
   removeEventFromWishList,
-}: WishListProps) => {
+}) => {
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.9} style={styles.card}>
       <View style={styles.cardContainer}>

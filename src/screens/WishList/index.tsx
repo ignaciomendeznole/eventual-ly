@@ -7,7 +7,7 @@ import { AppState } from '../../store/reducers';
 import { Event, Props } from '../../types/types';
 import styles from './styles';
 
-export const WishList = ({ navigation }: Props) => {
+export const WishList: React.FC<Props> = ({ navigation }) => {
   const { wishList } = useSelector((state: AppState) => state.eventsReducer);
   const dispatch = useDispatch();
   const removeEventFromWishList = (event: Event) => {

@@ -11,15 +11,12 @@ import {
 } from 'react-native';
 import styles from './styles';
 import SignUpLottie from '../../../assets/SignUpScreen/SignUpLottie';
-import { StackScreenProps } from '@react-navigation/stack';
-import { SignUpInformation } from '../../types/types';
+import { Props, SignUpInformation } from '../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAction } from '../../store/actions/authActions';
 import { AppState } from '../../store/reducers';
 
-interface Props extends StackScreenProps<any, any> {}
-
-export const SignUpScreen = ({ navigation }: Props) => {
+export const SignUpScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { errorMessage } = useSelector((state: AppState) => state.authReducer);
 

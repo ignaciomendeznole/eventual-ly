@@ -7,7 +7,7 @@ export type SearchBarProps = {
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SearchBar = ({ setKeyword }: SearchBarProps) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ setKeyword }) => {
   return (
     <View style={styles.container}>
       <Feather name='search' size={24} color='#c6c6c6' />

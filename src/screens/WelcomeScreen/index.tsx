@@ -7,7 +7,7 @@ import LottieImage from '../../../assets/WelcomeScreen/LottieImage';
 import { hideWelcomeScreen } from '../../store/actions/authActions';
 import styles from './styles';
 
-export const WelcomeScreen = () => {
+export const WelcomeScreen: React.FC = () => {
   const dispatch = useDispatch();
   const hideOnBoarding = () => {
     dispatch(hideWelcomeScreen());

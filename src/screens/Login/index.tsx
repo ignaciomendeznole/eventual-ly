@@ -15,13 +15,14 @@ import {
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  logInError,
   startGoogleLogin,
   startLoginEmailPassword,
 } from '../../store/actions/authActions';
 import { Credentials, Props } from '../../types/types';
 import { AppState } from '../../store/reducers';
 
-export const LoginScreen = ({ navigation }: Props) => {
+export const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { error, isLoading } = useSelector(
     (state: AppState) => state.authReducer

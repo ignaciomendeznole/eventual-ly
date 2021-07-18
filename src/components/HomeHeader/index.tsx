@@ -4,7 +4,7 @@ import colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 
-export const HomeHeader = () => {
+export const HomeHeader: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>

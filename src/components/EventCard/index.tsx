@@ -16,7 +16,7 @@ interface EventCardProps {
   navigation: any;
 }
 
-export const EventCard = ({ event, navigation }: EventCardProps) => {
+export const EventCard: React.FC<EventCardProps> = ({ event, navigation }) => {
   const { name, location, generalLocation, date, backdropImage } = event;
   return (
     <TouchableOpacity

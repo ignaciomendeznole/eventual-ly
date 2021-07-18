@@ -5,11 +5,21 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 60,
   },
+  subtitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+    marginLeft: 15,
+  },
   subtitle: {
     fontSize: 25,
     fontFamily: fonts.poppinsBold,
-    marginTop: 15,
-    marginHorizontal: 15,
+  },
+  plusIcon: {
+    marginLeft: 140,
+  },
+  titleContainer: {
+    alignItems: 'center',
   },
 });
 
