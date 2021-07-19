@@ -15,7 +15,7 @@ export const eventsReducer = (
     case 'ADD_EVENT':
       return {
         ...state,
-        isLoading: true,
+        isLoading: action.payload,
       };
     case 'ADD_EVENT_SUCCESS':
       return {
@@ -27,7 +27,7 @@ export const eventsReducer = (
       return {
         ...state,
         isLoading: false,
-        error: true,
+        error: action.payload,
       };
     case 'GET_EVENTS':
       return {
@@ -55,7 +55,7 @@ export const eventsReducer = (
       return {
         ...state,
         wishList: state.wishList.filter(
-          (event: Event) => event.id !== action.payload.id
+          (event: Event) => event.name !== action.payload.name
         ),
       };
     default:

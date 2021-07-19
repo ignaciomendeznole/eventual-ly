@@ -91,7 +91,6 @@ export type GoogleConfig = {
 };
 
 export type Event = {
-  id: string;
   description: string;
   name: string;
   date: string;
@@ -101,6 +100,7 @@ export type Event = {
   latitude: number;
   longitude: number;
   price: string;
+  creator: string;
 };
 
 export type SignUpInformation = {

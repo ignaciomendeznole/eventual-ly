@@ -12,11 +12,6 @@ export const useGoogleSearch = (
   setFormValue: any
 ) => {
   const [predictions, setPredictions] = useState<PredictionsType[]>([]);
-  // const [coords, setCoords] = useState<Coords>({
-  //   latitude: 0,
-  //   longitude: 0,
-  // });
-  // const [locationSelected, setLocationSelected] = useState<string>();
 
   useEffect(() => {
     fetchPlaces();
@@ -35,16 +30,15 @@ export const useGoogleSearch = (
             },
           },
         } = response;
-        // setCoords({
-        //   latitude: location.lat,
-        //   longitude: location.lng,
-        // });
-        // setLocationSelected(response.data.result.name);
         setFormValue({
           ...form,
           latitude: location.lat,
           longitude: location.lng,
           location: response.data.result.name,
+          generalLocation:
+            response.data.result.address_components[3].short_name +
+            ', ' +
+            response.data.result.address_components[4].short_name,
         });
         setPredictions([]);
       }
@@ -70,8 +64,6 @@ export const useGoogleSearch = (
   };
   return {
     predictions,
-    // coords,
     onPredictionSelected,
-    // locationSelected,
   };
 };

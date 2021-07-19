@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   locationText: {
     fontFamily: fonts.poppinsRegular,
@@ -130,6 +131,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#b6b6b6',
     backgroundColor: colors.GRAY,
+  },
+  plusIcon: {
+    position: 'absolute',
+    right: 50,
+    top: -120,
   },
 });
 

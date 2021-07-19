@@ -17,9 +17,17 @@ import * as ImagePicker from 'expo-image-picker';
 import { useGoogleSearch } from '../../hooks/useGoogleSearch';
 import { LocationPrediction } from '../../components/LocationPrediction';
 import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/reducers';
+import { createNewEvent } from '../../store/actions/eventActions';
+import { AntDesign } from '@expo/vector-icons';
+import colors from '../../constants/colors';
+import { Props } from '../../types/types';
 
-export const NewEventScreen: React.FC = () => {
+export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState<string>('');
+  const { uid } = useSelector((state: AppState) => state.authReducer);
+  const dispatch = useDispatch();
 
   const { onChangeField, form, setFormValue } = useForm({
     name: '',
@@ -31,6 +39,7 @@ export const NewEventScreen: React.FC = () => {
     price: '',
     location: '',
     backdropImage: '',
+    creator: uid,
   });
   const [dateValue, setDateValue] = useState<Date>(new Date());
   const { predictions, onPredictionSelected } = useGoogleSearch(
@@ -38,6 +47,15 @@ export const NewEventScreen: React.FC = () => {
     form,
     setFormValue
   );
+
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
+
+  const onSubmitForm = () => {
+    dispatch(createNewEvent(form));
+    navigation.goBack();
+  };
 
   const chooseImageFromGallery = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -140,6 +158,17 @@ export const NewEventScreen: React.FC = () => {
               </View>
             )}
           </View>
+          <TouchableOpacity
+            style={styles.plusIcon}
+            activeOpacity={0.6}
+            onPress={onSubmitForm}
+          >
+            <AntDesign
+              name='pluscircle'
+              size={36}
+              color={colors.GREENPALETTE}
+            />
+          </TouchableOpacity>
           {form.location ? (
             <View style={styles.selectedLocationContainer}>
               <Text style={styles.locationIndicator}>Event Location: </Text>
