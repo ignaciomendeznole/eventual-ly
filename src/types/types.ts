@@ -159,7 +159,7 @@ export type EventsAction =
 
 export type AddEventAction = {
   readonly type: 'ADD_EVENT';
-  payload: boolean;
+  payload: { success: boolean; isLoading: boolean };
 };
 
 export type AddEventSuccess = {
@@ -201,6 +201,7 @@ export type EventState = {
   events: Event[];
   error: boolean;
   wishList: Event[];
+  success: boolean;
 };
 
 export type CreateEventProps = {

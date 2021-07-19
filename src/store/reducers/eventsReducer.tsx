@@ -5,6 +5,7 @@ const initialState: EventState = {
   error: false,
   events: [],
   wishList: [],
+  success: false,
 };
 
 export const eventsReducer = (
@@ -15,7 +16,8 @@ export const eventsReducer = (
     case 'ADD_EVENT':
       return {
         ...state,
-        isLoading: action.payload,
+        isLoading: action.payload.isLoading,
+        success: action.payload.isLoading,
       };
     case 'ADD_EVENT_SUCCESS':
       return {

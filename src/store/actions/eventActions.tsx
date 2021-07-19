@@ -21,7 +21,10 @@ export const createNewEvent = (event: Event) => {
     const { uid } = getState().authReducer;
     dispatch({
       type: 'ADD_EVENT',
-      payload: true,
+      payload: {
+        isLoading: false,
+        success: true,
+      },
     });
     try {
       const docRef = await firebase.db
