@@ -8,20 +8,21 @@ import {
   Platform,
   TextInput,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import SignUpLottie from '../../../assets/SignUpScreen/SignUpLottie';
-import { StackScreenProps } from '@react-navigation/stack';
-import { SignUpInformation } from '../../types/types';
+import { Props, SignUpInformation } from '../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpAction } from '../../store/actions/authActions';
 import { AppState } from '../../store/reducers';
+import { LoadingBtn } from '../../components/ButtonLoading';
 
-interface Props extends StackScreenProps<any, any> {}
-
-export const SignUpScreen = ({ navigation }: Props) => {
+export const SignUpScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { errorMessage } = useSelector((state: AppState) => state.authReducer);
+  const { errorMessage, isLoading } = useSelector(
+    (state: AppState) => state.authReducer
+  );
 
   const [signUpInfo, setSignUpInfo] = useState<SignUpInformation>({
     firstName: '',
@@ -35,8 +36,14 @@ export const SignUpScreen = ({ navigation }: Props) => {
   };
 
   const signUp = () => {
-    dispatch(signUpAction(signUpInfo.email, signUpInfo.password));
-    console.log(errorMessage);
+    dispatch(
+      signUpAction(
+        signUpInfo.email,
+        signUpInfo.password,
+        signUpInfo.firstName,
+        signUpInfo.lastName
+      )
+    );
   };
 
   return (
@@ -124,7 +131,11 @@ export const SignUpScreen = ({ navigation }: Props) => {
                 activeOpacity={0.8}
                 onPress={signUp}
               >
-                <Text style={styles.logInText}>Sign Up</Text>
+                {isLoading ? (
+                  <LoadingBtn color={'white'} />
+                ) : (
+                  <Text style={styles.logInText}>Sign Up</Text>
+                )}
               </TouchableOpacity>
               <View style={styles.signUpContainer}>
                 <Text style={styles.signUpText}>Already have an account? </Text>
@@ -132,6 +143,7 @@ export const SignUpScreen = ({ navigation }: Props) => {
                   activeOpacity={0.7}
                   onPress={() => navigation.navigate('LoginScreen')}
                 >
+                  {}
                   <Text style={styles.signUpBtn}>Sign In</Text>
                 </TouchableOpacity>
               </View>

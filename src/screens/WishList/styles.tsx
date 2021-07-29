@@ -7,8 +7,7 @@ const styles = StyleSheet.create({
     paddingTop: 70,
   },
   titleContainer: {
-    marginLeft: 15,
-    marginBottom: 20,
+    paddingHorizontal: 15,
   },
   companyTitle: {
     fontFamily: fonts.poppinsBold,

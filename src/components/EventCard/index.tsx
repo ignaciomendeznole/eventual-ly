@@ -10,14 +10,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { Event } from '../../types/types';
 import styles from './styles';
 import { assistants } from '../../constants/AssistantsDummy';
+import { dateParser, hourParser } from '../../helper/dateParser';
+import colors from '../../constants/colors';
 
 interface EventCardProps {
   event: Event;
   navigation: any;
 }
 
-export const EventCard = ({ event, navigation }: EventCardProps) => {
-  const { name, location, generalLocation, date, backdropImage } = event;
+export const EventCard: React.FC<EventCardProps> = ({ event, navigation }) => {
+  const { name, location, date, backdropImage } = event;
+  let genericImage =
+    'https://franchetti.com/wp-content/uploads/2017/05/technology-to-enhance-meetings-and-presentations.jpg';
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -26,7 +30,7 @@ export const EventCard = ({ event, navigation }: EventCardProps) => {
       <View style={styles.container}>
         <ImageBackground
           source={{
-            uri: backdropImage,
+            uri: backdropImage ? backdropImage : genericImage,
           }}
           style={styles.imageBackground}
           imageStyle={styles.image}
@@ -35,19 +39,35 @@ export const EventCard = ({ event, navigation }: EventCardProps) => {
             {/* Text Views */}
             <View style={styles.dateContainer}>
               {/* Date View */}
-              <Text style={styles.textStyle}>{date.split(' ')[0]}</Text>
-              <Text style={styles.textStyle}>{date.split(' ')[1]}</Text>
+              <Text style={styles.textStyle}>
+                {dateParser(date).split('GMT')[0].split(' ')[0]}{' '}
+                {dateParser(date).split('GMT')[0].split(' ')[1]}{' '}
+                {dateParser(date).split('GMT')[0].split(' ')[2]}
+                {', '}
+                {dateParser(date).split('GMT')[0].split(' ')[3]}{' '}
+              </Text>
+              <Text style={styles.textStyle}>
+                {hourParser(dateParser(date).split('GMT')[0].split(' ')[4])}
+              </Text>
+              {/* <Text style={styles.textStyle}>{date.split(' ')[1]}</Text> */}
             </View>
             <View style={styles.locationContainer}>
               {/* Location Specific */}
               <Text style={styles.textStyle}>{name}</Text>
-              <Text style={styles.textStyle}>{location}</Text>
+              <Text style={styles.textStyle}>
+                {location?.address_components[0].long_name}
+              </Text>
             </View>
             <View style={styles.regionContainer}>
               {/* State and Country */}
-              <Ionicons name='location' size={20} color={'white'} />
-              <Text style={{ ...styles.textStyle, marginLeft: 10 }}>
-                {generalLocation}
+              <Ionicons name='location' size={20} color={colors.GREENPALETTE} />
+              <Text
+                style={{
+                  ...styles.textStyle,
+                  marginLeft: 10,
+                }}
+              >
+                {location?.address_components[0].short_name}
               </Text>
             </View>
           </View>

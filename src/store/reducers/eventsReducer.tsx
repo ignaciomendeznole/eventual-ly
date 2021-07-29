@@ -5,6 +5,7 @@ const initialState: EventState = {
   error: false,
   events: [],
   wishList: [],
+  success: false,
 };
 
 export const eventsReducer = (
@@ -15,7 +16,8 @@ export const eventsReducer = (
     case 'ADD_EVENT':
       return {
         ...state,
-        isLoading: true,
+        isLoading: action.payload.isLoading,
+        success: action.payload.isLoading,
       };
     case 'ADD_EVENT_SUCCESS':
       return {
@@ -27,24 +29,24 @@ export const eventsReducer = (
       return {
         ...state,
         isLoading: false,
-        error: true,
+        error: action.payload,
       };
     case 'GET_EVENTS':
       return {
         ...state,
-        isLoading: true,
+        isLoading: action.payload,
       };
     case 'GET_EVENTS_SUCCESS':
       return {
         ...state,
-        events: action.payload,
-        isLoading: false,
+        events: action.payload.events,
+        isLoading: action.payload.isLoading,
       };
     case 'GET_EVENTS_ERROR':
       return {
         ...state,
         isLoading: false,
-        error: true,
+        error: action.payload,
       };
     case 'ADD_TO_WISHLIST':
       return {
@@ -55,7 +57,7 @@ export const eventsReducer = (
       return {
         ...state,
         wishList: state.wishList.filter(
-          (event: Event) => event.id !== action.payload.id
+          (event: Event) => event.name !== action.payload.name
         ),
       };
     default:

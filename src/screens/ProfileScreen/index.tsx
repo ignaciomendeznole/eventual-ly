@@ -3,7 +3,7 @@ import { View, Text, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 
-export const ProfileScreen = () => {
+export const ProfileScreen: React.FC = () => {
   const dispatch = useDispatch();
   const logOut = () => {
     dispatch(signOut());

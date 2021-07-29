@@ -5,7 +5,7 @@ export const useEventsSearch = (keyWord: string, events: Event[]) => {
   const [eventsFiltered, setEventsFiltered] = useState<Event[]>(events);
 
   const searchEvents = () => {
-    if (keyWord.length === 0) {
+    if (keyWord.length === 0 || events.length === 0) {
       setEventsFiltered(events);
       return;
     } else {
@@ -18,7 +18,7 @@ export const useEventsSearch = (keyWord: string, events: Event[]) => {
   };
   useEffect(() => {
     searchEvents();
-  }, [keyWord]);
+  }, [keyWord, events]);
   return {
     eventsFiltered,
   };

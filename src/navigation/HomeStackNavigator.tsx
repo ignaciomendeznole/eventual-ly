@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { EventDetails } from '../screens/EventDetails';
 import { HomeScreen } from '../screens/HomeScreen';
+import { NewEventScreen } from '../screens/NewEvent';
 import { HomeStackParams } from '../types/types';
 
 const Stack = createStackNavigator<HomeStackParams>();
@@ -16,6 +17,7 @@ export const HomeStackNavigator = () => {
     >
       <Stack.Screen name='HomeScreen' component={HomeScreen} />
       <Stack.Screen name='EventDetailsScreen' component={EventDetails} />
+      <Stack.Screen name='NewEventScreen' component={NewEventScreen} />
     </Stack.Navigator>
   );
 };

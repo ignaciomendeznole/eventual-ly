@@ -9,7 +9,7 @@ interface TicketProps {
   ticket: Ticket;
 }
 
-export const TicketComponent = ({ ticket }: TicketProps) => {
+export const TicketComponent: React.FC<TicketProps> = ({ ticket }) => {
   return (
     <View style={styles.container}>
       <View style={styles.ticketHeaderContainer}>
