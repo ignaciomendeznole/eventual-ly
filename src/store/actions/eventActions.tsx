@@ -20,7 +20,7 @@ export const fetchMyEvents = () => {
     const { uid } = getState().authReducer;
     try {
       const response = await axiosClient.post<EventsOwnerShipResponse>(
-        'http://192.168.0.189:5000/api/events/fetch-own-events/',
+        '/events/fetch-own-events/',
         { userId: uid }
       );
       dispatch({
@@ -50,8 +50,8 @@ export const createNewEvent = (event: Event) => {
       },
     });
     try {
-      const response = await axios.post<NewEventResponse>(
-        'http://192.168.0.189:5000/api/events/create-event/',
+      const response = await axiosClient.post<NewEventResponse>(
+        '/events/create-event/',
         { event: event }
       );
       console.log(response.data);
