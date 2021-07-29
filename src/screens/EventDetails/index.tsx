@@ -19,6 +19,8 @@ import {
   removeFromWishList,
 } from '../../store/actions/eventActions';
 import { AppState } from '../../store/reducers';
+import { dateParser, hourParser } from '../../helper/dateParser';
+import { openNativeMaps } from '../../helper/openMaps';
 
 interface Props
   extends StackScreenProps<HomeStackParams, 'EventDetailsScreen'> {}
@@ -31,6 +33,9 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
   const addEventToWishList = () => {
     dispatch(addToWishList(event));
   };
+
+  let mockDescription =
+    'Lorem ipsum dolor sit amet consectetur, adipiscing elit luctus leo, lacinia erat venenatis elementum. Varius cubilia ridiculus orci fames tempus ornare potenti maecenas litora, ultrices dignissim vitae himenaeos tempor mattis viverra aenean, pulvinar rhoncus massa fringilla leo facilisi est vivamus. Feugiat viverra pretium magna vulputate nibh malesuada arcu accumsan, netus sociosqu quisque aenean fermentum euismod facilisi risus pulvinar, placerat class purus tristique commodo hendrerit vitae.';
 
   const checkIfLiked = () => {
     if (wishList.includes(event)) {
@@ -54,7 +59,11 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
     <View style={styles.container}>
       <StatusBar barStyle='light-content' />
       <ImageBackground
-        source={{ uri: event.backdropImage }}
+        source={{
+          uri: event.backdropImage
+            ? event.backdropImage
+            : 'https://franchetti.com/wp-content/uploads/2017/05/technology-to-enhance-meetings-and-presentations.jpg',
+        }}
         style={styles.imageBackground}
         imageStyle={styles.image}
       >
@@ -66,11 +75,19 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
           {/* Date and Time Info */}
           <View style={styles.dayContainer}>
             <Ionicons name='calendar' size={24} color={colors.REDPALETTE} />
-            <Text style={styles.timeText}>{event.date}, 2023</Text>
+            <Text style={styles.timeText}>
+              {dateParser(event.date).split('GMT')[0].split(' ')[0]}{' '}
+              {dateParser(event.date).split('GMT')[0].split(' ')[1]}{' '}
+              {dateParser(event.date).split('GMT')[0].split(' ')[2]}
+              {', '}
+              {dateParser(event.date).split('GMT')[0].split(' ')[3]}
+            </Text>
           </View>
           <View style={styles.dayContainer}>
             <Ionicons name='time' size={24} color={colors.REDPALETTE} />
-            <Text style={styles.timeText}>10am - 13pm</Text>
+            <Text style={styles.timeText}>
+              {hourParser(dateParser(event.date).split('GMT')[0].split(' ')[4])}
+            </Text>
           </View>
         </View>
       </ImageBackground>
@@ -96,7 +113,9 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
           {/* Event Details */}
           <Text style={styles.title}>Event Description</Text>
           <Text style={styles.description}>
-            {event.description.substring(0, 150) + '...'}
+            {event.description
+              ? event.description.substring(0, 150) + '...'
+              : mockDescription.substring(0, 150) + '...'}
           </Text>
           <TouchableOpacity activeOpacity={0.7}>
             <Text style={styles.readMore}>Read More</Text>
@@ -104,18 +123,24 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
           <MapView
             provider={PROVIDER_GOOGLE}
             region={{
-              latitude: event.latitude,
-              longitude: event.longitude,
+              latitude: event.location?.geometry.location.lat!,
+              longitude: event.location?.geometry.location.lng!,
               latitudeDelta: 0.003,
               longitudeDelta: 0.003,
             }}
             style={styles.mapView}
             mapType='standard'
+            onPress={() =>
+              openNativeMaps(
+                event.location?.geometry.location.lat!,
+                event.location?.geometry.location.lng!
+              )
+            }
           >
             <MarkerAnimated
               coordinate={{
-                latitude: event.latitude,
-                longitude: event.longitude,
+                latitude: event.location?.geometry.location.lat!,
+                longitude: event.location?.geometry.location.lng!,
               }}
               title={event.name}
             />

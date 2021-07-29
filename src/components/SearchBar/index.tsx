@@ -15,6 +15,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setKeyword }) => {
         placeholder='Search for Events'
         style={styles.textInput}
         onChangeText={(text) => setKeyword(text)}
+        returnKeyType='done'
       />
     </View>
   );

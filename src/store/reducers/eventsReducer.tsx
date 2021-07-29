@@ -34,19 +34,19 @@ export const eventsReducer = (
     case 'GET_EVENTS':
       return {
         ...state,
-        isLoading: true,
+        isLoading: action.payload,
       };
     case 'GET_EVENTS_SUCCESS':
       return {
         ...state,
-        events: action.payload,
-        isLoading: false,
+        events: action.payload.events,
+        isLoading: action.payload.isLoading,
       };
     case 'GET_EVENTS_ERROR':
       return {
         ...state,
         isLoading: false,
-        error: true,
+        error: action.payload,
       };
     case 'ADD_TO_WISHLIST':
       return {

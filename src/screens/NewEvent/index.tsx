@@ -22,24 +22,21 @@ import { AppState } from '../../store/reducers';
 import { createNewEvent } from '../../store/actions/eventActions';
 import { AntDesign } from '@expo/vector-icons';
 import colors from '../../constants/colors';
-import { Props } from '../../types/types';
+import { Event, Props } from '../../types/types';
 
 export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const { uid } = useSelector((state: AppState) => state.authReducer);
   const dispatch = useDispatch();
 
-  const { onChangeField, form, setFormValue } = useForm({
+  const { onChangeField, form, setFormValue } = useForm<Event>({
     name: '',
     date: '',
     description: '',
-    latitude: 0,
-    longitude: 0,
-    generalLocation: '',
-    price: '',
-    location: '',
+    location: null,
+    price: 0,
     backdropImage: '',
-    creator: uid,
+    owner: uid,
   });
   const [dateValue, setDateValue] = useState<Date>(new Date());
   const { predictions, onPredictionSelected } = useGoogleSearch(
@@ -47,10 +44,6 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
     form,
     setFormValue
   );
-
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
 
   const onSubmitForm = () => {
     dispatch(createNewEvent(form));
@@ -169,10 +162,12 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
               color={colors.GREENPALETTE}
             />
           </TouchableOpacity>
-          {form.location ? (
+          {form.location?.address_components[0].short_name ? (
             <View style={styles.selectedLocationContainer}>
               <Text style={styles.locationIndicator}>Event Location: </Text>
-              <Text style={styles.locationText}>{form.location}</Text>
+              <Text style={styles.locationText}>
+                {form.location.address_components[0].short_name}
+              </Text>
             </View>
           ) : null}
 

@@ -32,7 +32,7 @@ export const WishList: React.FC<Props> = ({ navigation }) => {
       ) : (
         <FlatList
           data={wishList}
-          keyExtractor={(item: Event) => item.id}
+          keyExtractor={(item: Event) => item._id!}
           renderItem={({ item }) => (
             <WishListComponent
               event={item}

@@ -1,24 +1,47 @@
 import { Dispatch } from 'react';
-import { CreateEventProps, Event, EventsAction } from '../../types/types';
+import {
+  CreateEventProps,
+  Event,
+  EventsAction,
+  EventsOwnerShipResponse,
+  NewEventResponse,
+} from '../../types/types';
 import firebase from '../../database/firebase';
 import { AppState } from '../reducers';
+import axiosClient from '../../../config/axiosClient';
+import axios from 'axios';
 
-// export const fetchAllEvents = () => {
-//   return async (dispatch: Dispatch<EventsAction>, getState: () => AppState) => {
-//     dispatch({
-//       type: 'GET_EVENTS',
-//       payload: true,
-//     });
-//     const { uid } = getState().authReducer;
-//     try {
-//       const response = await firebase.db.collection(`${uid}/events`)
-//     } catch (error) {}
-//   };
-// };
+export const fetchMyEvents = () => {
+  return async (dispatch: Dispatch<EventsAction>, getState: () => AppState) => {
+    dispatch({
+      type: 'GET_EVENTS',
+      payload: true,
+    });
+    const { uid } = getState().authReducer;
+    try {
+      const response = await axiosClient.post<EventsOwnerShipResponse>(
+        'http://192.168.0.189:5000/api/events/fetch-own-events/',
+        { userId: uid }
+      );
+      dispatch({
+        type: 'GET_EVENTS_SUCCESS',
+        payload: {
+          events: response.data.events,
+          isLoading: false,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: 'GET_EVENTS_ERROR',
+        payload: true,
+      });
+    }
+  };
+};
 
 export const createNewEvent = (event: Event) => {
-  return async (dispatch: Dispatch<EventsAction>, getState: () => AppState) => {
-    const { uid } = getState().authReducer;
+  return async (dispatch: Dispatch<EventsAction>) => {
     dispatch({
       type: 'ADD_EVENT',
       payload: {
@@ -27,14 +50,14 @@ export const createNewEvent = (event: Event) => {
       },
     });
     try {
-      const docRef = await firebase.db
-        .collection(`${uid}/events/event`)
-        .add(event);
-      const snapshot = await docRef.get();
-      const newEvent = snapshot.data() as Event;
+      const response = await axios.post<NewEventResponse>(
+        'http://192.168.0.189:5000/api/events/create-event/',
+        { event: event }
+      );
+      console.log(response.data);
       dispatch({
         type: 'ADD_EVENT_SUCCESS',
-        payload: newEvent,
+        payload: response.data,
       });
     } catch (error) {
       console.log(error);

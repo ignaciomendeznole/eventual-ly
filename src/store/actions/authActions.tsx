@@ -2,8 +2,9 @@ import * as Google from 'expo-google-app-auth';
 import { Dispatch } from 'react';
 import firebase from '../../database/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthAction } from '../../types/types';
+import { AuthAction, UserSignupResponse } from '../../types/types';
 import clients from '../../../config.json';
+import axiosClient from '../../../config/axiosClient';
 
 export const startLoginEmailPassword = (email: string, password: string) => {
   return async (dispatch: Dispatch<AuthAction>) => {
@@ -48,7 +49,12 @@ export const hideWelcomeScreen = () => {
   };
 };
 
-export const signUpAction = (email: string, password: string) => {
+export const signUpAction = (
+  email: string,
+  password: string,
+  firstName: string,
+  familyName: string
+) => {
   return async (dispatch: Dispatch<AuthAction>) => {
     dispatch({
       type: 'SIGN_IN_LOADING',
@@ -58,14 +64,24 @@ export const signUpAction = (email: string, password: string) => {
       const response = await firebase.firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
+      const mongoInsert = await axiosClient.post<UserSignupResponse>(
+        'http://192.168.0.189:5000/api/users/create-user',
+        {
+          email: email,
+          userId: response.user?.uid,
+          firstName: firstName,
+          familyName: familyName,
+        }
+      );
       dispatch({
         type: 'SIGN_IN',
         payload: {
           uid: response.user?.uid!,
-          displayName: response.user?.displayName!,
+          displayName: mongoInsert.data.user.firstName,
         },
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: 'ERROR_SIGN_IN',
         payload: {
@@ -125,10 +141,7 @@ export const signOut = () => {
   };
 };
 
-export const logInSuccess = (
-  uid: string | null,
-  displayName: string | undefined
-) => ({
+export const logInSuccess = (uid: string, displayName: string | undefined) => ({
   type: 'SIGN_IN',
   payload: {
     uid,

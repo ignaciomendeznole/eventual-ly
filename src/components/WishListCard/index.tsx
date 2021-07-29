@@ -1,6 +1,7 @@
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { dateParser } from '../../helper/dateParser';
 import { Event } from '../../types/types';
 import styles from './styles';
 
@@ -21,16 +22,26 @@ export const WishListComponent: React.FC<WishListProps> = ({
         <View style={styles.cardLayout}>
           {/* Event Image */}
           <Image
-            source={{ uri: event.backdropImage }}
+            source={{
+              uri: event.backdropImage
+                ? event.backdropImage
+                : 'https://franchetti.com/wp-content/uploads/2017/05/technology-to-enhance-meetings-and-presentations.jpg',
+            }}
             style={styles.cardImage}
           />
         </View>
         <View style={styles.eventInfoContainer}>
           {/* Event Information */}
-          <View>
+          <View style={{ flexWrap: 'wrap' }}>
             {/* Event Name and Event Date */}
             <Text style={styles.eventNameText}>{event.name}</Text>
-            <Text style={styles.eventDateText}>August 23rd, 2023</Text>
+            <Text style={styles.eventDateText}>
+              {dateParser(event.date).split('GMT')[0].split(' ')[0]}{' '}
+              {dateParser(event.date).split('GMT')[0].split(' ')[1]}{' '}
+              {dateParser(event.date).split('GMT')[0].split(' ')[2]}
+              {', '}
+              {dateParser(event.date).split('GMT')[0].split(' ')[3]}
+            </Text>
           </View>
           <View style={styles.rightAlignedContainer}>
             <View style={styles.priceContainer}>

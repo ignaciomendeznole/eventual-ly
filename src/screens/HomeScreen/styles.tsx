@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
   titleContainer: {
     alignItems: 'center',
   },
+  textStyle: {
+    fontFamily: fonts.poppinsBold,
+    fontSize: 15,
+  },
 });
 
 export default styles;

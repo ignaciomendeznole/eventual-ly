@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +20,7 @@ import {
 } from '../../store/actions/authActions';
 import { Credentials, Props } from '../../types/types';
 import { AppState } from '../../store/reducers';
+import { LoadingBtn } from '../../components/ButtonLoading';
 
 export const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -129,7 +129,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={handleLogin}
               >
                 {isLoading ? (
-                  <ActivityIndicator />
+                  <LoadingBtn color='white' />
                 ) : (
                   <Text style={styles.logInText}>Sign In</Text>
                 )}
