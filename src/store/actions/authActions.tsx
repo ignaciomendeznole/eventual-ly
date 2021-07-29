@@ -65,7 +65,7 @@ export const signUpAction = (
         .auth()
         .createUserWithEmailAndPassword(email, password);
       const mongoInsert = await axiosClient.post<UserSignupResponse>(
-        'http://192.168.0.189:5000/api/users/create-user',
+        '/users/create-user',
         {
           email: email,
           userId: response.user?.uid,
