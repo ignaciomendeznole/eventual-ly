@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
+import { Result } from '../../types/GooglePlaces';
+import { GeocodingResponse } from '../../types/geocoding';
 
-export const HomeHeader: React.FC = () => {
+interface Props {
+  currentLocation: GeocodingResponse;
+}
+
+export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
@@ -15,7 +21,13 @@ export const HomeHeader: React.FC = () => {
             <Ionicons name='location' size={20} color={colors.REDPALETTE} />
 
             {/* Texto de ubicación */}
-            <Text style={styles.liveLocationText}>Córdoba, Argentina</Text>
+
+            {currentLocation && (
+              <Text style={styles.liveLocationText}>
+                {currentLocation.results[0].address_components[2].long_name},{' '}
+                {currentLocation.results[0].address_components[5].long_name}
+              </Text>
+            )}
           </View>
         </View>
         <TouchableOpacity activeOpacity={0.75}>

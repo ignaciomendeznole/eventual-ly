@@ -10,6 +10,7 @@ import { BottomTabNavigator } from './TabNavigator';
 import { logInSuccess, logInError } from '../store/actions/authActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppState } from '../store/reducers';
+import { useCurrentLocation } from '../hooks/useCurrentLocation';
 
 const Stack = createStackNavigator<AppStackParams>();
 
@@ -32,7 +33,7 @@ export const AppNavigator = () => {
 
   useEffect(() => {
     getWelcomeScreen();
-  });
+  }, []);
 
   const getWelcomeScreen = async () => {
     try {

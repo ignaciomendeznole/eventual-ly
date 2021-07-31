@@ -1,5 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import { AddressComponent, Geometry, Location, Result } from './google';
+import { LocationObject } from 'expo-location';
+import { AddressComponent, Geometry, Location, Result } from './GooglePlaces';
 
 export type BottomTabParams = {
   HomeStack: undefined;
@@ -83,7 +84,10 @@ export type UserState = {
   givenName: string;
   familyName: string;
   profilePicture: string;
-  currentLocation: string;
+  currentLocation: Result | null;
+  error: boolean;
+  errorMsg: string;
+  isLoading: boolean;
 };
 
 export type GoogleConfig = {
@@ -123,6 +127,11 @@ export type Credentials = {
   password: string;
 };
 
+export type LoadingUserStore = {
+  readonly type: 'LOADING_USER_INFO';
+  payload: { isLoading: boolean };
+};
+
 export type UpdateUserName = {
   readonly type: 'SET_GIVEN_NAME';
   payload: string;
@@ -135,13 +144,20 @@ export type UpdateFamilyName = {
 
 export type UpdateUserLocation = {
   readonly type: 'SET_CURRENT_LOCATION';
-  payload: string;
+  payload: { currentLocation: Result; isLoading: false };
+};
+
+export type UserActionsError = {
+  readonly type: 'USER_ACTIONS_ERROR';
+  payload: { error: boolean; errorMsg?: string; isLoading: false };
 };
 
 export type UserActions =
   | UpdateUserName
   | UpdateFamilyName
-  | UpdateUserLocation;
+  | UpdateUserLocation
+  | LoadingUserStore
+  | UserActionsError;
 
 export type Ticket = {
   id: string;

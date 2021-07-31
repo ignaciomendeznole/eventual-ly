@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { BottomTabParams } from '../types/types';
@@ -14,6 +14,7 @@ const TabNavigator = createBottomTabNavigator<BottomTabParams>();
 
 export const BottomTabNavigator = () => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
+
   return (
     <TabNavigator.Navigator
       tabBarOptions={{
