@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     width: 53,
     borderRadius: 50,
   },
+  loadingSpinner: {
+    marginLeft: 20,
+  },
 });
 
 export default styles;

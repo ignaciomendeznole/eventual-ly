@@ -15,10 +15,15 @@ import styles from './styles';
 import { useEventsSearch } from '../../hooks/useEventsSearch';
 import { AntDesign } from '@expo/vector-icons';
 import colors from '../../constants/colors';
-import { Event, Props } from '../../types/types';
+import { Props } from '../../types/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/reducers';
 import { fetchMyEvents } from '../../store/actions/eventActions';
+import { useCurrentLocation } from '../../hooks/useCurrentLocation';
+import * as Location from 'expo-location';
+import { Result } from '../../types/GooglePlaces';
+import axios from 'axios';
+import { GOOGLE_MAPS_API_KEY } from '../../constants/MAPS_KEY';
 
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = Dimensions.get('window');
@@ -29,6 +34,8 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   );
   const { eventsFiltered } = useEventsSearch(keyword, events);
 
+  const { currentLocation } = useCurrentLocation();
+
   useEffect(() => {
     dispatch(fetchMyEvents());
   }, []);
@@ -36,7 +43,8 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <HomeHeader />
+        <HomeHeader currentLocation={currentLocation!} />
+
         <SearchBar setKeyword={setKeyword} />
         <View style={styles.subtitleContainer}>
           <View style={styles.titleContainer}>

@@ -54,7 +54,6 @@ export const createNewEvent = (event: Event) => {
         '/events/create-event/',
         { event: event }
       );
-      console.log(response.data);
       dispatch({
         type: 'ADD_EVENT_SUCCESS',
         payload: response.data,

@@ -5,7 +5,7 @@ import {
   GOOGLE_MAPS_API_KEY,
   GOOGLE_MAPS_BASE_URL,
 } from '../constants/MAPS_KEY';
-import { GooglePlacesResponse } from '../types/google';
+import { GooglePlacesResponse } from '../types/GooglePlaces';
 
 export const useGoogleSearch = (
   searchTerm: string,
@@ -19,7 +19,6 @@ export const useGoogleSearch = (
   }, [searchTerm]);
 
   const onPredictionSelected = async (placeId: string) => {
-    console.log(placeId);
     try {
       const response = await axios.post<GooglePlacesResponse>(
         `${GOOGLE_MAPS_BASE_URL}/details/json?key=${GOOGLE_MAPS_API_KEY}&placeid=${placeId}`
