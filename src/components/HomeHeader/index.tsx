@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
@@ -22,11 +28,13 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
 
             {/* Texto de ubicación */}
 
-            {currentLocation && (
+            {currentLocation ? (
               <Text style={styles.liveLocationText}>
                 {currentLocation.results[0].address_components[2].long_name},{' '}
                 {currentLocation.results[0].address_components[5].long_name}
               </Text>
+            ) : (
+              <ActivityIndicator style={styles.loadingSpinner} />
             )}
           </View>
         </View>
