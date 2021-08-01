@@ -28,7 +28,6 @@ export type AppStackParams = {
   TabNavigator: undefined;
   AuthStack: undefined;
   OnBoarding: undefined;
-  SplashScreen: undefined;
 };
 
 export type ProfileStackParams = {

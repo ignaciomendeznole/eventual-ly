@@ -19,7 +19,7 @@ import { LoadingBtn } from '../../components/ButtonLoading';
 
 export const SignUpScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { errorMessage, isLoading } = useSelector(
+  const { errorMessage, isLoadingAuth } = useSelector(
     (state: AppState) => state.authReducer
   );
 
@@ -130,7 +130,7 @@ export const SignUpScreen: React.FC<Props> = ({ navigation }) => {
                 activeOpacity={0.8}
                 onPress={signUp}
               >
-                {isLoading ? (
+                {isLoadingAuth ? (
                   <LoadingBtn color={'white'} />
                 ) : (
                   <Text style={styles.logInText}>Sign Up</Text>

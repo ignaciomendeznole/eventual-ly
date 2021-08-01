@@ -151,7 +151,7 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
             // onPress={handlePurchase}
           >
             <Text style={styles.purchaseText}>
-              Buy Ticket for {event.price}
+              Buy Ticket for U$D{event.price}
             </Text>
           </TouchableOpacity>
         </View>
