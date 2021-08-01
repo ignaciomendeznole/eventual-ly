@@ -307,3 +307,26 @@ export interface NewEventResponse {
   owner: string;
   description: string;
 }
+
+export type UiState = {
+  isLoading?: boolean;
+  error?: boolean;
+  errorMessage?: string;
+};
+
+export type LoadingUiAction = {
+  readonly type: 'UI_LOADING';
+  payload: { isLoading: boolean };
+};
+
+export type FinishLoadingUiAction = {
+  readonly type: 'UI_FINISH_LOADING';
+  payload: { isLoading: boolean };
+};
+
+export type ErrorUiAction = {
+  readonly type: 'UI_ERROR';
+  payload: { isLoading: boolean; error: boolean; errorMessage?: string };
+};
+
+export type UiActions = LoadingUiAction | ErrorUiAction;
