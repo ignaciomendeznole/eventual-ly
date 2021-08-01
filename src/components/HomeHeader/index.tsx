@@ -10,6 +10,7 @@ import colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 import { GeocodingResponse } from '../../types/geocoding';
+import { LoadingIndicator } from '../LoadingIndicator';
 
 interface Props {
   currentLocation: GeocodingResponse;
@@ -33,7 +34,7 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
                 {currentLocation.results[0].address_components[5].long_name}
               </Text>
             ) : (
-              <ActivityIndicator style={styles.loadingSpinner} />
+              <LoadingIndicator />
             )}
           </View>
         </View>

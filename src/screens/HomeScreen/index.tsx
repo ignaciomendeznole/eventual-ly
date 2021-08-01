@@ -5,7 +5,6 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
 import { HomeHeader } from '../../components/HomeHeader';
 import { SearchBar } from '../../components/SearchBar';
@@ -20,8 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/reducers';
 import { fetchMyEvents } from '../../store/actions/eventActions';
 import { useCurrentLocation } from '../../hooks/useCurrentLocation';
-import { AnimatedLoading } from '../../components/LoadingAnimated';
-import { LoadingScreen } from '../LoadingScreen';
+import { LoadingScreen } from '../LoadingScreen/index';
 
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = Dimensions.get('window');

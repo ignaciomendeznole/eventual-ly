@@ -28,6 +28,7 @@ import {
   finishLoadingAction,
   loadingAction,
 } from '../../store/actions/uiActions';
+import { LoadingImage } from '../../components/LoadingImage';
 
 export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -201,7 +202,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
                 style={styles.image}
               />
             ) : (
-              isLoading && <ActivityIndicator />
+              isLoading && <LoadingImage />
             )}
           </View>
         </View>
