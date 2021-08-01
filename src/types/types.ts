@@ -28,6 +28,7 @@ export type AppStackParams = {
   TabNavigator: undefined;
   AuthStack: undefined;
   OnBoarding: undefined;
+  SplashScreen: undefined;
 };
 
 export type ProfileStackParams = {
@@ -73,7 +74,7 @@ export type AuthAction =
 export type AuthState = {
   uid: string;
   userName: string;
-  isLoading: boolean;
+  isLoadingAuth: boolean;
   error: boolean;
   errorMessage: string;
   isLoggedIn: boolean;
@@ -221,7 +222,7 @@ export type RemoveEventFromWishList = {
 };
 
 export type EventState = {
-  isLoading: boolean;
+  isLoadingEvents: boolean;
   events: Event[];
   error: boolean;
   wishList: Event[];

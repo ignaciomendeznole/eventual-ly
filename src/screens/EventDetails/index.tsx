@@ -10,7 +10,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { Event, HomeStackParams } from '../../types/types';
+import { HomeStackParams } from '../../types/types';
 import styles from './styles';
 import colors from '../../constants/colors';
 import { useDispatch, useSelector } from 'react-redux';

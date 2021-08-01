@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from './styles';
-import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
 import * as ImagePicker from 'expo-image-picker';
 import { useGoogleSearch } from '../../hooks/useGoogleSearch';
 import { LocationPrediction } from '../../components/LocationPrediction';

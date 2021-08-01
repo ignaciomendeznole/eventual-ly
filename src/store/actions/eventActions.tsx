@@ -1,15 +1,13 @@
 import { Dispatch } from 'react';
 import {
-  CreateEventProps,
   Event,
   EventsAction,
   EventsOwnerShipResponse,
   NewEventResponse,
+  UiActions,
 } from '../../types/types';
-import firebase from '../../database/firebase';
 import { AppState } from '../reducers';
 import axiosClient from '../../../config/axiosClient';
-import axios from 'axios';
 
 export const fetchMyEvents = () => {
   return async (dispatch: Dispatch<EventsAction>, getState: () => AppState) => {
@@ -23,13 +21,15 @@ export const fetchMyEvents = () => {
         '/events/fetch-own-events/',
         { userId: uid }
       );
-      dispatch({
-        type: 'GET_EVENTS_SUCCESS',
-        payload: {
-          events: response.data.events,
-          isLoading: false,
-        },
-      });
+      setTimeout(() => {
+        dispatch({
+          type: 'GET_EVENTS_SUCCESS',
+          payload: {
+            events: response.data.events,
+            isLoading: false,
+          },
+        });
+      }, 6000);
     } catch (error) {
       console.log(error);
       dispatch({
@@ -41,7 +41,7 @@ export const fetchMyEvents = () => {
 };
 
 export const createNewEvent = (event: Event) => {
-  return async (dispatch: Dispatch<EventsAction>) => {
+  return async (dispatch: Dispatch<EventsAction | UiActions>) => {
     dispatch({
       type: 'ADD_EVENT',
       payload: {
