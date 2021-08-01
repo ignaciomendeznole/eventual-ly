@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   KeyboardAvoidingView,
@@ -23,10 +24,16 @@ import { createNewEvent } from '../../store/actions/eventActions';
 import { AntDesign } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { Event, Props } from '../../types/types';
+import { cloudinaryImageUpload } from '../../helper/getImageURL';
+import {
+  finishLoadingAction,
+  loadingAction,
+} from '../../store/actions/uiActions';
 
 export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState<string>('');
   const { uid } = useSelector((state: AppState) => state.authReducer);
+  const { isLoading } = useSelector((state: AppState) => state.uiReducer);
   const dispatch = useDispatch();
 
   const { onChangeField, form, setFormValue } = useForm<Event>({
@@ -52,17 +59,20 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
 
   const chooseImageFromGallery = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
       allowsEditing: true,
       aspect: [4, 3],
+      base64: true,
     });
+    dispatch(loadingAction());
     if (!result.cancelled) {
-      const { uri } = result as ImageInfo;
+      const uri = await cloudinaryImageUpload(result);
+
       setFormValue({
         ...form,
         backdropImage: uri,
       });
+      dispatch(finishLoadingAction());
     } else {
       setFormValue({
         ...form,
@@ -111,6 +121,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
                 style={styles.textInput}
                 placeholder='Event Name'
                 onChangeText={(text: string) => onChangeField(text, 'name')}
+                returnKeyType='done'
               />
             </View>
             <View style={styles.eventDateInput}>
@@ -130,6 +141,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
                 setSearchInput(text);
               }}
               style={styles.textInput}
+              returnKeyType='done'
             />
             {predictions.length !== 0 && (
               <View style={styles.predictionsContainer}>
@@ -151,25 +163,28 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
               </View>
             )}
           </View>
-          <TouchableOpacity
-            style={styles.plusIcon}
-            activeOpacity={0.6}
-            onPress={onSubmitForm}
-          >
-            <AntDesign
-              name='pluscircle'
-              size={36}
-              color={colors.GREENPALETTE}
-            />
-          </TouchableOpacity>
-          {form.location?.address_components[0].short_name ? (
+          {!isLoading && (
+            <TouchableOpacity
+              style={styles.plusIcon}
+              activeOpacity={!isLoading ? 0.6 : 0}
+              onPress={onSubmitForm}
+            >
+              <AntDesign
+                name='pluscircle'
+                size={36}
+                color={colors.GREENPALETTE}
+              />
+            </TouchableOpacity>
+          )}
+
+          {form.location?.address_components[0].short_name && (
             <View style={styles.selectedLocationContainer}>
               <Text style={styles.locationIndicator}>Event Location: </Text>
               <Text style={styles.locationText}>
                 {form.location.address_components[0].short_name}
               </Text>
             </View>
-          ) : null}
+          )}
 
           <TouchableOpacity
             style={styles.uploadPhotoButton}
@@ -179,13 +194,15 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
             <Text style={styles.buttonText}>Choose an Image</Text>
           </TouchableOpacity>
           <View style={styles.imageContainer}>
-            {form.backdropImage !== '' && (
+            {form.backdropImage !== '' && !isLoading ? (
               <Image
                 source={{
                   uri: form.backdropImage,
                 }}
                 style={styles.image}
               />
+            ) : (
+              isLoading && <ActivityIndicator />
             )}
           </View>
         </View>
