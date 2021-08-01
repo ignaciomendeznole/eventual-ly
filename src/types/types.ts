@@ -329,4 +329,4 @@ export type ErrorUiAction = {
   payload: { isLoading: boolean; error: boolean; errorMessage?: string };
 };
 
-export type UiActions = LoadingUiAction | ErrorUiAction;
+export type UiActions = LoadingUiAction | ErrorUiAction | FinishLoadingUiAction;
