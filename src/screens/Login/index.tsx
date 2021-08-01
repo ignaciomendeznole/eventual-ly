@@ -23,7 +23,7 @@ import { LoadingBtn } from '../../components/ButtonLoading';
 
 export const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { error, isLoading } = useSelector(
+  const { error, isLoadingAuth } = useSelector(
     (state: AppState) => state.authReducer
   );
   const [credentials, setCredentials] = useState<Credentials>({
@@ -127,7 +127,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 activeOpacity={0.8}
                 onPress={handleLogin}
               >
-                {isLoading ? (
+                {isLoadingAuth ? (
                   <LoadingBtn color='white' />
                 ) : (
                   <Text style={styles.logInText}>Sign In</Text>

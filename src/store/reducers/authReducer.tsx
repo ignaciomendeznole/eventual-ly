@@ -3,7 +3,7 @@ import { AuthAction, AuthState } from '../../types/types';
 const initialState: AuthState = {
   uid: '',
   userName: '',
-  isLoading: false,
+  isLoadingAuth: false,
   error: false,
   errorMessage: '',
   isLoggedIn: false,
@@ -24,7 +24,7 @@ export const authReducer = (
         onBoarding: true,
         error: false,
         errorMessage: '',
-        isLoading: false,
+        isLoadingAuth: false,
       };
     case 'ERROR_SIGN_IN':
       return {
@@ -33,13 +33,13 @@ export const authReducer = (
         userName: '',
         error: action.payload.error,
         errorMessage: action.payload.errorMsg,
-        isLoading: false,
+        isLoadingAuth: false,
         isLoggedIn: false,
       };
     case 'SIGN_IN_LOADING':
       return {
         ...state,
-        isLoading: action.payload,
+        isLoadingAuth: action.payload,
         error: false,
         errorMessage: '',
       };
@@ -57,7 +57,7 @@ export const authReducer = (
         onBoarding: false,
         error: false,
         errorMessage: '',
-        isLoading: false,
+        isLoadingAuth: false,
       };
     default:
       return state;
