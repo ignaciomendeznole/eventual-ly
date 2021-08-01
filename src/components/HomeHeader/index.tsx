@@ -16,21 +16,24 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
       <View style={styles.contentContainer}>
         <View>
           <Text style={styles.currentLocationText}>Current Location</Text>
-          <View style={styles.liveLocationContainer}>
-            {/* Icono de ubicación */}
-            <Ionicons name='location' size={20} color={colors.REDPALETTE} />
 
-            {/* Texto de ubicación */}
+          {/* Icono de ubicación */}
 
-            {currentLocation ? (
+          {/* Texto de ubicación */}
+
+          {currentLocation ? (
+            <View style={styles.liveLocationContainer}>
+              <Ionicons name='location' size={20} color={colors.REDPALETTE} />
               <Text style={styles.liveLocationText}>
                 {currentLocation.results[0].address_components[2].long_name},{' '}
                 {currentLocation.results[0].address_components[5].long_name}
               </Text>
-            ) : (
+            </View>
+          ) : (
+            <View style={styles.liveLocationContainer}>
               <LoadingIndicator />
-            )}
-          </View>
+            </View>
+          )}
         </View>
         <TouchableOpacity activeOpacity={0.75}>
           <View style={styles.imageContainer}>
