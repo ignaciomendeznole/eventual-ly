@@ -1,7 +1,7 @@
 import { Event, EventsAction, EventState } from '../../types/types';
 
 const initialState: EventState = {
-  isLoading: false,
+  isLoadingEvents: false,
   error: false,
   events: [],
   wishList: [],
@@ -16,36 +16,36 @@ export const eventsReducer = (
     case 'ADD_EVENT':
       return {
         ...state,
-        isLoading: action.payload.isLoading,
+        isLoadingEvents: action.payload.isLoading,
         success: action.payload.isLoading,
       };
     case 'ADD_EVENT_SUCCESS':
       return {
         ...state,
-        isLoading: false,
+        isLoadingEvents: false,
         events: [...state.events, action.payload],
       };
     case 'ADD_EVENT_ERROR':
       return {
         ...state,
-        isLoading: false,
+        isLoadingEvents: false,
         error: action.payload,
       };
     case 'GET_EVENTS':
       return {
         ...state,
-        isLoading: action.payload,
+        isLoadingEvents: action.payload,
       };
     case 'GET_EVENTS_SUCCESS':
       return {
         ...state,
         events: action.payload.events,
-        isLoading: action.payload.isLoading,
+        isLoadingEvents: action.payload.isLoading,
       };
     case 'GET_EVENTS_ERROR':
       return {
         ...state,
-        isLoading: false,
+        isLoadingEvents: false,
         error: action.payload,
       };
     case 'ADD_TO_WISHLIST':

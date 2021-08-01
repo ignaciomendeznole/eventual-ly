@@ -1,8 +1,6 @@
-import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
 import LottieImage from '../../../assets/WelcomeScreen/LottieImage';
 import { hideWelcomeScreen } from '../../store/actions/authActions';
 import styles from './styles';

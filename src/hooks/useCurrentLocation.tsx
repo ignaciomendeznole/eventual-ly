@@ -3,17 +3,22 @@ import { GOOGLE_MAPS_API_KEY } from '../constants/MAPS_KEY';
 import * as Location from 'expo-location';
 import { useEffect, useState } from 'react';
 import { GeocodingResponse } from '../types/geocoding';
+import { useDispatch } from 'react-redux';
+import { finishLoadingAction, loadingAction } from '../store/actions/uiActions';
 
 export const useCurrentLocation = () => {
   const [currentLocation, setCurrentLocation] = useState<GeocodingResponse>();
+  const dispatch = useDispatch();
 
   const getUserLocation = async () => {
+    dispatch(loadingAction());
     try {
       const response = await Location.getCurrentPositionAsync({});
       getLocationInformation(
         response.coords.latitude,
         response.coords.longitude
       );
+      dispatch(finishLoadingAction());
     } catch (error) {
       console.log(error);
     }

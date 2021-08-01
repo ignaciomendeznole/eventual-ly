@@ -8,7 +8,6 @@ import {
   Platform,
   TextInput,
   StatusBar,
-  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
 import SignUpLottie from '../../../assets/SignUpScreen/SignUpLottie';

@@ -11,6 +11,8 @@ import { logInSuccess, logInError } from '../store/actions/authActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppState } from '../store/reducers';
 import { useCurrentLocation } from '../hooks/useCurrentLocation';
+import { AnimatedLoading } from '../components/LoadingAnimated';
+import { finishLoadingAction, loadingAction } from '../store/actions/uiActions';
 
 const Stack = createStackNavigator<AppStackParams>();
 

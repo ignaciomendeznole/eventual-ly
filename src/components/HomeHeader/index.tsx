@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,6 @@ import {
 import colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
-import { Result } from '../../types/GooglePlaces';
 import { GeocodingResponse } from '../../types/geocoding';
 
 interface Props {

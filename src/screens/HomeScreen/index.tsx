@@ -20,18 +20,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/reducers';
 import { fetchMyEvents } from '../../store/actions/eventActions';
 import { useCurrentLocation } from '../../hooks/useCurrentLocation';
-import * as Location from 'expo-location';
-import { Result } from '../../types/GooglePlaces';
-import axios from 'axios';
-import { GOOGLE_MAPS_API_KEY } from '../../constants/MAPS_KEY';
+import { AnimatedLoading } from '../../components/LoadingAnimated';
+import { LoadingScreen } from '../LoadingScreen';
 
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = Dimensions.get('window');
   const [keyword, setKeyword] = useState<string>('');
   const dispatch = useDispatch();
-  const { events, isLoading } = useSelector(
+  const { events, isLoadingEvents } = useSelector(
     (state: AppState) => state.eventsReducer
   );
+
   const { eventsFiltered } = useEventsSearch(keyword, events);
 
   const { currentLocation } = useCurrentLocation();
@@ -39,6 +38,10 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     dispatch(fetchMyEvents());
   }, []);
+
+  if (isLoadingEvents) {
+    return <LoadingScreen />;
+  }
 
   return (
     <View style={styles.container}>
@@ -60,11 +63,7 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {isLoading ? (
-          <View style={{ marginTop: '30%' }}>
-            <ActivityIndicator style={{ alignSelf: 'center' }} />
-          </View>
-        ) : events.length !== 0 ? (
+        {events.length !== 0 ? (
           <Carousel
             data={eventsFiltered}
             renderItem={({ item }) => (

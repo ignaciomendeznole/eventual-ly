@@ -14,7 +14,6 @@ import {
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  logInError,
   startGoogleLogin,
   startLoginEmailPassword,
 } from '../../store/actions/authActions';
