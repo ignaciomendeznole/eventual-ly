@@ -29,7 +29,7 @@ export const fetchMyEvents = () => {
             isLoading: false,
           },
         });
-      }, 6000);
+      }, 4000);
     } catch (error) {
       console.log(error);
       dispatch({

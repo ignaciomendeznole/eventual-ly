@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import { HomeHeader } from '../../components/HomeHeader';
 import { SearchBar } from '../../components/SearchBar';
@@ -23,6 +24,7 @@ import { LoadingScreen } from '../LoadingScreen/index';
 
 export const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = Dimensions.get('window');
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
   const dispatch = useDispatch();
   const { events, isLoadingEvents } = useSelector(
@@ -37,13 +39,30 @@ export const HomeScreen: React.FC<Props> = ({ navigation }) => {
     dispatch(fetchMyEvents());
   }, []);
 
+  const wait = (timeout: number) => {
+    return new Promise((resolve: any) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   if (isLoadingEvents) {
     return <LoadingScreen />;
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={colors.GREENPALETTE}
+          />
+        }
+      >
         <HomeHeader currentLocation={currentLocation!} />
 
         <SearchBar setKeyword={setKeyword} />
