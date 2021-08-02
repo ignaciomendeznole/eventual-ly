@@ -63,12 +63,17 @@ export type HideOnBoarding = {
   readonly type: 'HIDE_ONBOARDING';
 };
 
+export type RemoveErrorAuth = {
+  readonly type: 'REMOVE_ERROR';
+};
+
 export type AuthAction =
   | SignInSuccess
   | LoadingSignIn
   | SignInError
   | LogOut
-  | HideOnBoarding;
+  | HideOnBoarding
+  | RemoveErrorAuth;
 
 export type AuthState = {
   uid: string;

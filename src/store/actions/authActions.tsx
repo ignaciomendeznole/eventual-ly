@@ -36,6 +36,14 @@ export const startLoginEmailPassword = (email: string, password: string) => {
   };
 };
 
+export const removeError = () => {
+  return (dispatch: Dispatch<AuthAction>) => {
+    dispatch({
+      type: 'REMOVE_ERROR',
+    });
+  };
+};
+
 export const hideWelcomeScreen = () => {
   return async (dispatch: Dispatch<AuthAction>) => {
     try {

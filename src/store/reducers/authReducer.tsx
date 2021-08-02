@@ -59,6 +59,12 @@ export const authReducer = (
         errorMessage: '',
         isLoadingAuth: false,
       };
+    case 'REMOVE_ERROR':
+      return {
+        ...state,
+        error: false,
+        errorMessage: '',
+      };
     default:
       return state;
   }

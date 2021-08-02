@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LottieImage from '../../../assets/Login/Lottie';
 import GoogleIcon from '../../../assets/Login/Google';
 import { AntDesign } from '@expo/vector-icons';
@@ -14,6 +14,7 @@ import {
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  removeError,
   startGoogleLogin,
   startLoginEmailPassword,
 } from '../../store/actions/authActions';
@@ -43,6 +44,12 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const handleGoogleLogin = () => {
     dispatch(startGoogleLogin());
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(removeError());
+    }, 4000);
+  }, []);
 
   return (
     <ScrollView>
