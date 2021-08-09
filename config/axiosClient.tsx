@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'http://192.168.0.189:5000/api';
+const BASE_URL = "https://whispering-bastion-07256.herokuapp.com/api";
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
