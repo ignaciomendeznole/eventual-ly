@@ -1,10 +1,10 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import colors from "../../constants/colors";
-import { Ionicons } from "@expo/vector-icons";
-import styles from "./styles";
-import { GeocodingResponse } from "../../types/geocoding";
-import { LoadingIndicator } from "../LoadingIndicator";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import colors from '../../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
+import styles from './styles';
+import { GeocodingResponse } from '../../types/geocoding';
+import { LoadingIndicator } from '../LoadingIndicator';
 
 interface Props {
   currentLocation: GeocodingResponse;
@@ -23,9 +23,9 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
 
           {currentLocation ? (
             <View style={styles.liveLocationContainer}>
-              <Ionicons name="location" size={20} color={colors.REDPALETTE} />
+              <Ionicons name='location' size={20} color={colors.REDPALETTE} />
               <Text style={styles.liveLocationText}>
-                {currentLocation.results[0].address_components[2].long_name},{" "}
+                {currentLocation.results[0].address_components[2].long_name},{' '}
                 {currentLocation.results[0].address_components[5].long_name}
               </Text>
             </View>
