@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
+import styles from './styles';
 
 export const ProfileScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -9,11 +10,10 @@ export const ProfileScreen: React.FC = () => {
     dispatch(signOut());
   };
   return (
-    <View>
-      <Text style={{ marginTop: 300, alignSelf: 'center', fontSize: 30 }}>
-        Profile Screen
-      </Text>
-      <Button title='Log Out' onPress={logOut} />
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={logOut}>
+        <Text style={styles.signOut}> Sign Out </Text>
+      </TouchableOpacity>
     </View>
   );
 };
