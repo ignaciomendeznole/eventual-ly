@@ -26,7 +26,10 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
               <Ionicons name='location' size={20} color={colors.REDPALETTE} />
               <Text style={styles.liveLocationText}>
                 {currentLocation.results[0].address_components[2].long_name},{' '}
-                {currentLocation.results[0].address_components[5].long_name}
+                {currentLocation.results[0].address_components[5].long_name.substring(
+                  0,
+                  6
+                ) + '...'}
               </Text>
             </View>
           ) : (
@@ -35,9 +38,8 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
             </View>
           )}
         </View>
-        {/* <TouchableOpacity activeOpacity={0.75}>
+        <TouchableOpacity activeOpacity={0.75}>
           <View style={styles.imageContainer}>
-            Imagen de perfil del usuario
             <Image
               source={{
                 uri: 'https://www.pngfind.com/pngs/m/4-48198_business-man-business-man-face-png-transparent-png.png',
@@ -45,7 +47,7 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
               style={styles.image}
             />
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
