@@ -122,7 +122,13 @@ export const startGoogleLogin = () => {
           },
         });
       } else {
-        return { cancelled: true };
+        dispatch({
+          type: 'ERROR_SIGN_IN',
+          payload: {
+            error: false,
+            errorMsg: 'Cancelled login',
+          },
+        });
       }
     } catch (error) {
       dispatch({

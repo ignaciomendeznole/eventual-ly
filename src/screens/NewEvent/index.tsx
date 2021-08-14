@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   KeyboardAvoidingView,
@@ -81,7 +80,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const onChangeDate = (e: any, dateParam: Date) => {
+  const onChangeDate = (dateParam: Date) => {
     setFormValue({
       ...form,
       date: new Date(dateParam.getTime()).toLocaleString(),
@@ -130,18 +129,16 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
                 value={dateValue}
                 mode='datetime'
                 display='default'
-                onChange={(e: any, date: any) => onChangeDate(e, date)}
+                onChange={(date: any) => onChangeDate(date)}
               />
             </View>
           </View>
           <View style={styles.locationInputContainer}>
             <TextInput
               placeholder='Choose the event location'
-              onChangeText={(text: string) => {
-                setSearchInput(text);
-              }}
               style={styles.textInput}
               returnKeyType='done'
+              onSubmitEditing={(e) => setSearchInput(e.nativeEvent.text)}
             />
             {predictions.length !== 0 && (
               <View style={styles.predictionsContainer}>
