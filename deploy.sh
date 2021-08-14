@@ -1,4 +1,3 @@
-cd ./expo
 
 touch deploy
 
