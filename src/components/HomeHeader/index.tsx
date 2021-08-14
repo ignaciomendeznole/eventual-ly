@@ -26,10 +26,13 @@ export const HomeHeader: React.FC<Props> = ({ currentLocation }) => {
               <Ionicons name='location' size={20} color={colors.REDPALETTE} />
               <Text style={styles.liveLocationText}>
                 {currentLocation.results[0].address_components[2].long_name},{' '}
-                {currentLocation.results[0].address_components[5].long_name.substring(
-                  0,
-                  6
-                ) + '...'}
+                {currentLocation.results[0].address_components[5].long_name
+                  .length > 10
+                  ? currentLocation.results[0].address_components[5].long_name.substring(
+                      0,
+                      8
+                    ) + '...'
+                  : currentLocation.results[0].address_components[5].long_name}
               </Text>
             </View>
           ) : (
