@@ -53,9 +53,7 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-      >
+      <KeyboardAvoidingView behavior={'position'}>
         <View style={styles.container}>
           <View>
             <View style={styles.lottieContainer}>

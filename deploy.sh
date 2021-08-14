@@ -1,10 +1,4 @@
 
-touch deploy
-
-chmod u+x deploy
-
-set -e
-
 yarn install
 
 expo publish --release-channel production --non-interactive

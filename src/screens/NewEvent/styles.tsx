@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import fonts from '../../constants/fonts';
 
@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
     width: 150,
     marginRight: 20,
 
+    alignItems: Platform.OS === 'android' ? 'center' : 'stretch',
+
     justifyContent: 'center',
   },
   locationInputContainer: {
@@ -136,6 +138,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 50,
     top: -120,
+  },
+  chooseDateText: {
+    color: colors.GREENPALETTE,
+    fontFamily: fonts.poppinsBold,
+    fontSize: 15,
+    marginTop: 7,
   },
 });
 

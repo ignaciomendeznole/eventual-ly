@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
 import { useGoogleSearch } from '../../hooks/useGoogleSearch';
@@ -31,6 +32,7 @@ import { LoadingImage } from '../../components/LoadingImage';
 
 export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState<string>('');
+  const [showDatepicker, setShowDatePicker] = useState<boolean>(false);
   const { uid } = useSelector((state: AppState) => state.authReducer);
   const { isLoading } = useSelector((state: AppState) => state.uiReducer);
   const dispatch = useDispatch();
@@ -86,6 +88,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
       date: new Date(dateParam.getTime()).toLocaleString(),
     });
     setDateValue(new Date(dateParam.getTime()));
+    setShowDatePicker(false);
   };
 
   useEffect(() => {
@@ -102,9 +105,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-      >
+      <KeyboardAvoidingView behavior={'position'}>
         <View style={styles.titleContainer}>
           <Text style={styles.companyTitle}>Eventual.ly</Text>
           <Text style={styles.screenTitle}>New Event</Text>
@@ -124,13 +125,29 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
               />
             </View>
             <View style={styles.eventDateInput}>
-              <DateTimePicker
-                testID='dateTimePicker'
-                value={dateValue}
-                mode='datetime'
-                display='default'
-                onChange={(date: any) => onChangeDate(date)}
-              />
+              {Platform.OS === 'ios' ? (
+                <DateTimePicker
+                  testID='dateTimePicker'
+                  value={dateValue}
+                  mode={Platform.OS === 'ios' ? 'datetime' : 'date'}
+                  display={Platform.OS === 'ios' ? 'default' : 'calendar'}
+                  onChange={(date: any) => onChangeDate(date)}
+                />
+              ) : (
+                <>
+                  <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                    <Text style={styles.chooseDateText}>
+                      {form.date ? form.date : 'Choose Date'}
+                    </Text>
+                  </TouchableOpacity>
+                  <DateTimePickerModal
+                    isVisible={showDatepicker}
+                    mode='datetime'
+                    onConfirm={(date: any) => onChangeDate(date)}
+                    onCancel={() => setShowDatePicker(false)}
+                  />
+                </>
+              )}
             </View>
           </View>
           <View style={styles.locationInputContainer}>
@@ -178,7 +195,7 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
             <View style={styles.selectedLocationContainer}>
               <Text style={styles.locationIndicator}>Event Location: </Text>
               <Text style={styles.locationText}>
-                {form.location.address_components[0].short_name}
+                {form.location.formatted_address}
               </Text>
             </View>
           )}
