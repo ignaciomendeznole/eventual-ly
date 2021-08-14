@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import fonts from '../../constants/fonts';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    marginTop: Platform.OS === 'ios' ? 60 : 20,
   },
   subtitleContainer: {
     flexDirection: 'row',

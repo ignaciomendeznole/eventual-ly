@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import fonts from '../../constants/fonts';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 70,
+    paddingTop: Platform.OS === 'ios' ? 70 : 30,
   },
   titleContainer: {
     paddingHorizontal: 15,
