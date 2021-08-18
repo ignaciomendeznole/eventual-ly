@@ -13,11 +13,8 @@ export const useCurrentLocation = () => {
   const getUserLocation = async () => {
     dispatch(loadingAction());
     try {
-      const response = await Location.getCurrentPositionAsync({});
-      getLocationInformation(
-        response.coords.latitude,
-        response.coords.longitude
-      );
+      const { coords } = await Location.getCurrentPositionAsync({});
+      getLocationInformation(coords.latitude, coords.longitude);
       dispatch(finishLoadingAction());
     } catch (error) {
       console.log(error);
@@ -28,10 +25,10 @@ export const useCurrentLocation = () => {
     longitude: number
   ) => {
     try {
-      const response = await axios.get<GeocodingResponse>(
+      const { data } = await axios.get<GeocodingResponse>(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`
       );
-      setCurrentLocation(response.data);
+      setCurrentLocation(data);
     } catch (error) {
       console.log(error);
     }

@@ -24,10 +24,12 @@ export const useGoogleSearch = (
         `${GOOGLE_MAPS_BASE_URL}/details/json?key=${GOOGLE_MAPS_API_KEY}&placeid=${placeId}`
       );
       if (response) {
-        const { data } = response;
+        const {
+          data: { result },
+        } = response;
         setFormValue({
           ...form,
-          location: data.result,
+          location: result,
         });
         setPredictions([]);
       }

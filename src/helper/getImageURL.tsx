@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
+import { CloudinaryUpload } from '../types/types';
 
 export const cloudinaryImageUpload = async (imageData: ImageInfo) => {
   let base64Img = `data:image/jpg;base64,${imageData.base64}`;
@@ -9,11 +10,13 @@ export const cloudinaryImageUpload = async (imageData: ImageInfo) => {
   };
 
   try {
-    const response = await axios.post<any>(
+    const {
+      data: { secure_url },
+    } = await axios.post<CloudinaryUpload>(
       `https://api.cloudinary.com/v1_1/drbctf82b/image/upload`,
       data
     );
-    return response.data.secure_url;
+    return secure_url;
   } catch (error) {
     console.log(error);
   }
