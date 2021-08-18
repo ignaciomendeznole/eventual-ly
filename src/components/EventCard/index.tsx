@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Event } from '../../types/types';
@@ -43,10 +44,13 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigation }) => {
                 {dateParser(date).split('GMT')[0].split(' ')[0]}{' '}
                 {dateParser(date).split('GMT')[0].split(' ')[1]}{' '}
                 {dateParser(date).split('GMT')[0].split(' ')[2]}
-                {dateParser(date)
-                  .split('GMT')[0]
-                  .split(' ')[3]
-                  .replace('-', '')}{' '}
+                {Platform.OS === 'ios' ? ', ' : ' '}
+                {Platform.OS === 'android'
+                  ? dateParser(date)
+                      .split('GMT')[0]
+                      .split(' ')[3]
+                      .replace('-', '')
+                  : dateParser(date).split('GMT')[0].split(' ')[3]}{' '}
               </Text>
               <Text style={styles.textStyle}>
                 {hourParser(dateParser(date).split('GMT')[0].split(' ')[4])}

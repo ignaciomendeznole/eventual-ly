@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  Platform,
 } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { HomeStackParams } from '../../types/types';
@@ -79,10 +80,13 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
               {dateParser(event.date).split('GMT')[0].split(' ')[0]}{' '}
               {dateParser(event.date).split('GMT')[0].split(' ')[1]}{' '}
               {dateParser(event.date).split('GMT')[0].split(' ')[2]}
-              {dateParser(event.date)
-                .split('GMT')[0]
-                .split(' ')[3]
-                .replace('-', '')}
+              {Platform.OS === 'ios' ? ', ' : ''}
+              {Platform.OS === 'android'
+                ? dateParser(event.date)
+                    .split('GMT')[0]
+                    .split(' ')[3]
+                    .replace('-', '')
+                : dateParser(event.date).split('GMT')[0].split(' ')[3]}
             </Text>
           </View>
           <View style={styles.dayContainer}>
@@ -98,7 +102,13 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
           <AntDesign name='arrowleft' size={32} color='white' />
         </TouchableOpacity>
       </View>
-      <View style={{ position: 'absolute', top: 60, right: 20 }}>
+      <View
+        style={{
+          position: 'absolute',
+          top: 60,
+          right: 20,
+        }}
+      >
         {!liked ? (
           <TouchableOpacity onPress={addEventToWishList}>
             <AntDesign name='hearto' size={32} color='white' />
@@ -110,7 +120,7 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
         )}
       </View>
 
-      <ScrollView>
+      <ScrollView style={{ marginBottom: 100.5 }}>
         <View style={styles.marginContainer}>
           {/* Event Details */}
           <Text style={styles.title}>Event Description</Text>

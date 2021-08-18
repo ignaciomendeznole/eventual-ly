@@ -105,9 +105,9 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <KeyboardAvoidingView behavior={'position'}>
+    <KeyboardAvoidingView behavior={'position'}>
+      <ScrollView style={styles.screenContainer}>
+        <View style={styles.container}>
           <View style={styles.titleContainer}>
             <Text style={styles.companyTitle}>Eventual.ly</Text>
             <Text style={styles.screenTitle}>New Event</Text>
@@ -231,8 +231,8 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
             keyboardType='numeric'
             returnKeyType='done'
           />
-        </KeyboardAvoidingView>
+        </View>
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };

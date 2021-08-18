@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import fonts from '../../constants/fonts';
 
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+    marginBottom: Platform.OS === 'android' ? 20 : 0,
   },
   purchaseText: {
     fontFamily: fonts.poppinsBold,
