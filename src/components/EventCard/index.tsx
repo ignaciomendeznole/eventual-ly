@@ -43,8 +43,10 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigation }) => {
                 {dateParser(date).split('GMT')[0].split(' ')[0]}{' '}
                 {dateParser(date).split('GMT')[0].split(' ')[1]}{' '}
                 {dateParser(date).split('GMT')[0].split(' ')[2]}
-                {', '}
-                {dateParser(date).split('GMT')[0].split(' ')[3]}{' '}
+                {dateParser(date)
+                  .split('GMT')[0]
+                  .split(' ')[3]
+                  .replace('-', '')}{' '}
               </Text>
               <Text style={styles.textStyle}>
                 {hourParser(dateParser(date).split('GMT')[0].split(' ')[4])}

@@ -79,8 +79,10 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
               {dateParser(event.date).split('GMT')[0].split(' ')[0]}{' '}
               {dateParser(event.date).split('GMT')[0].split(' ')[1]}{' '}
               {dateParser(event.date).split('GMT')[0].split(' ')[2]}
-              {', '}
-              {dateParser(event.date).split('GMT')[0].split(' ')[3]}
+              {dateParser(event.date)
+                .split('GMT')[0]
+                .split(' ')[3]
+                .replace('-', '')}
             </Text>
           </View>
           <View style={styles.dayContainer}>
