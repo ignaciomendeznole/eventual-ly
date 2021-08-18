@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -105,131 +106,133 @@ export const NewEventScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior={'position'}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.companyTitle}>Eventual.ly</Text>
-          <Text style={styles.screenTitle}>New Event</Text>
-          <Text style={styles.screenDescription}>
-            Please fill the following fields to publish your own event.
-          </Text>
-        </View>
+      <ScrollView>
+        <KeyboardAvoidingView behavior={'position'}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.companyTitle}>Eventual.ly</Text>
+            <Text style={styles.screenTitle}>New Event</Text>
+            <Text style={styles.screenDescription}>
+              Please fill the following fields to publish your own event.
+            </Text>
+          </View>
 
-        <View style={styles.formContainer}>
-          <View style={styles.topInputFieldsContainer}>
-            <View style={styles.eventNameInput}>
-              <TextInput
-                style={styles.textInput}
-                placeholder='Event Name'
-                onChangeText={(text: string) => onChangeField(text, 'name')}
-                returnKeyType='done'
-              />
+          <View style={styles.formContainer}>
+            <View style={styles.topInputFieldsContainer}>
+              <View style={styles.eventNameInput}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder='Event Name'
+                  onChangeText={(text: string) => onChangeField(text, 'name')}
+                  returnKeyType='done'
+                />
+              </View>
+              <View style={styles.eventDateInput}>
+                {Platform.OS === 'ios' ? (
+                  <DateTimePicker
+                    testID='dateTimePicker'
+                    value={dateValue}
+                    mode={Platform.OS === 'ios' ? 'datetime' : 'date'}
+                    display={Platform.OS === 'ios' ? 'default' : 'calendar'}
+                    onChange={(date: any) => onChangeDate(date)}
+                  />
+                ) : (
+                  <>
+                    <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                      <Text style={styles.chooseDateText}>
+                        {form.date ? form.date : 'Choose Date'}
+                      </Text>
+                    </TouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={showDatepicker}
+                      mode='datetime'
+                      onConfirm={(date: any) => onChangeDate(date)}
+                      onCancel={() => setShowDatePicker(false)}
+                    />
+                  </>
+                )}
+              </View>
             </View>
-            <View style={styles.eventDateInput}>
-              {Platform.OS === 'ios' ? (
-                <DateTimePicker
-                  testID='dateTimePicker'
-                  value={dateValue}
-                  mode={Platform.OS === 'ios' ? 'datetime' : 'date'}
-                  display={Platform.OS === 'ios' ? 'default' : 'calendar'}
-                  onChange={(date: any) => onChangeDate(date)}
+            <View style={styles.locationInputContainer}>
+              <TextInput
+                placeholder='Choose the event location'
+                style={styles.textInput}
+                returnKeyType='done'
+                onSubmitEditing={(e) => setSearchInput(e.nativeEvent.text)}
+              />
+              {predictions.length !== 0 && (
+                <View style={styles.predictionsContainer}>
+                  <FlatList
+                    data={predictions}
+                    keyExtractor={(item) => item.place_id}
+                    renderItem={({ item }) => (
+                      <LocationPrediction
+                        prediction={item}
+                        onSelectPrediction={() => {
+                          onPredictionSelected(item.place_id);
+                        }}
+                      />
+                    )}
+                    ItemSeparatorComponent={() => (
+                      <View style={styles.predictionSeparator} />
+                    )}
+                  />
+                </View>
+              )}
+            </View>
+            {!isLoading && (
+              <TouchableOpacity
+                style={styles.plusIcon}
+                activeOpacity={!isLoading ? 0.6 : 0}
+                onPress={onSubmitForm}
+              >
+                <AntDesign
+                  name='pluscircle'
+                  size={36}
+                  color={colors.GREENPALETTE}
+                />
+              </TouchableOpacity>
+            )}
+
+            {form.location?.address_components[0].short_name && (
+              <View style={styles.selectedLocationContainer}>
+                <Text style={styles.locationIndicator}>Event Location: </Text>
+                <Text style={styles.locationText}>
+                  {form.location.formatted_address}
+                </Text>
+              </View>
+            )}
+
+            <TouchableOpacity
+              style={styles.uploadPhotoButton}
+              activeOpacity={0.8}
+              onPress={chooseImageFromGallery}
+            >
+              <Text style={styles.buttonText}>Choose an Image</Text>
+            </TouchableOpacity>
+            <View style={styles.imageContainer}>
+              {form.backdropImage !== '' && !isLoading ? (
+                <Image
+                  source={{
+                    uri: form.backdropImage,
+                  }}
+                  style={styles.image}
                 />
               ) : (
-                <>
-                  <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                    <Text style={styles.chooseDateText}>
-                      {form.date ? form.date : 'Choose Date'}
-                    </Text>
-                  </TouchableOpacity>
-                  <DateTimePickerModal
-                    isVisible={showDatepicker}
-                    mode='datetime'
-                    onConfirm={(date: any) => onChangeDate(date)}
-                    onCancel={() => setShowDatePicker(false)}
-                  />
-                </>
+                isLoading && <LoadingImage />
               )}
             </View>
           </View>
-          <View style={styles.locationInputContainer}>
-            <TextInput
-              placeholder='Choose the event location'
-              style={styles.textInput}
-              returnKeyType='done'
-              onSubmitEditing={(e) => setSearchInput(e.nativeEvent.text)}
-            />
-            {predictions.length !== 0 && (
-              <View style={styles.predictionsContainer}>
-                <FlatList
-                  data={predictions}
-                  keyExtractor={(item) => item.place_id}
-                  renderItem={({ item }) => (
-                    <LocationPrediction
-                      prediction={item}
-                      onSelectPrediction={() => {
-                        onPredictionSelected(item.place_id);
-                      }}
-                    />
-                  )}
-                  ItemSeparatorComponent={() => (
-                    <View style={styles.predictionSeparator} />
-                  )}
-                />
-              </View>
-            )}
-          </View>
-          {!isLoading && (
-            <TouchableOpacity
-              style={styles.plusIcon}
-              activeOpacity={!isLoading ? 0.6 : 0}
-              onPress={onSubmitForm}
-            >
-              <AntDesign
-                name='pluscircle'
-                size={36}
-                color={colors.GREENPALETTE}
-              />
-            </TouchableOpacity>
-          )}
-
-          {form.location?.address_components[0].short_name && (
-            <View style={styles.selectedLocationContainer}>
-              <Text style={styles.locationIndicator}>Event Location: </Text>
-              <Text style={styles.locationText}>
-                {form.location.formatted_address}
-              </Text>
-            </View>
-          )}
-
-          <TouchableOpacity
-            style={styles.uploadPhotoButton}
-            activeOpacity={0.8}
-            onPress={chooseImageFromGallery}
-          >
-            <Text style={styles.buttonText}>Choose an Image</Text>
-          </TouchableOpacity>
-          <View style={styles.imageContainer}>
-            {form.backdropImage !== '' && !isLoading ? (
-              <Image
-                source={{
-                  uri: form.backdropImage,
-                }}
-                style={styles.image}
-              />
-            ) : (
-              isLoading && <LoadingImage />
-            )}
-          </View>
-        </View>
-        <TextInput
-          placeholder='Choose the event price'
-          onChangeText={(text: string) => {
-            onChangeField(text, 'price');
-          }}
-          style={styles.priceInputContainer}
-          keyboardType='numeric'
-          returnKeyType='done'
-        />
-      </KeyboardAvoidingView>
+          <TextInput
+            placeholder='Choose the event price'
+            onChangeText={(text: string) => {
+              onChangeField(text, 'price');
+            }}
+            style={styles.priceInputContainer}
+            keyboardType='numeric'
+            returnKeyType='done'
+          />
+        </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
   );
 };
