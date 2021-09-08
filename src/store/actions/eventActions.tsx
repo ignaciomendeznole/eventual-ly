@@ -92,7 +92,7 @@ export const addToWishList = (event: Event) => {
 };
 
 /**
- *
+ * Removes an event from the user wishlist.
  * @param event Event to be removed from the wishlist.
  * @returns Redux Action used for removing an event from the wishlist.
  */
