@@ -9,6 +9,10 @@ import {
 import { AppState } from '../reducers';
 import axiosClient from '../../../config/axiosClient';
 
+/**
+ * Loads the events the user has created.
+ * @returns Redux Action used for fetching current user's events.
+ */
 export const fetchMyEvents = () => {
   return async (dispatch: Dispatch<EventsAction>, getState: () => AppState) => {
     dispatch({
@@ -40,6 +44,11 @@ export const fetchMyEvents = () => {
   };
 };
 
+/**
+ * Creates a new event, using the current logged user as the event creator.
+ * @param event Event information to be stored in MongoDB
+ * @returns Redux Action for adding the event into the events store state.
+ */
 export const createNewEvent = (event: Event) => {
   return async (dispatch: Dispatch<EventsAction | UiActions>) => {
     dispatch({
@@ -68,6 +77,11 @@ export const createNewEvent = (event: Event) => {
   };
 };
 
+/**
+ * Adds an event to the wishlist.
+ * @param event Event to be added to the wishlist
+ * @returns Redux Action to add an event to the user's Wishlist
+ */
 export const addToWishList = (event: Event) => {
   return async (dispatch: Dispatch<EventsAction>) => {
     dispatch({
@@ -77,6 +91,11 @@ export const addToWishList = (event: Event) => {
   };
 };
 
+/**
+ *
+ * @param event Event to be removed from the wishlist.
+ * @returns Redux Action used for removing an event from the wishlist.
+ */
 export const removeFromWishList = (event: Event) => {
   return async (dispatch: Dispatch<EventsAction>) => {
     dispatch({

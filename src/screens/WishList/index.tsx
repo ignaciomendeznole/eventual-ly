@@ -13,6 +13,10 @@ export const WishList: React.FC<Props> = ({ navigation }) => {
   const removeEventFromWishList = (event: Event) => {
     dispatch(removeFromWishList(event));
   };
+  /**
+   * Redirects a user to the selected  event details.
+   * @param event Event to which the user will be redirected to.
+   */
   const moveToEventDetails = (event: Event) => {
     navigation.navigate('EventDetails', { event });
   };

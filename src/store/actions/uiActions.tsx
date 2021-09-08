@@ -1,6 +1,10 @@
 import { Dispatch } from 'react';
 import { UiActions } from '../../types/types';
 
+/**
+ * Loading state in the app
+ * @returns Redux Action that sets loading state in the app
+ */
 export const loadingAction = () => {
   return (dispatch: Dispatch<UiActions>) => {
     dispatch({
@@ -12,6 +16,11 @@ export const loadingAction = () => {
   };
 };
 
+/**
+ * Triggers an error in the app state.
+ * @param errorMessage Error to be displayed in the screen
+ * @returns Redux Action used for setting an error message in the store
+ */
 export const errorAction = (errorMessage: string) => {
   return (dispatch: Dispatch<UiActions>) => {
     dispatch({
@@ -25,6 +34,10 @@ export const errorAction = (errorMessage: string) => {
   };
 };
 
+/**
+ * Sets the App Loading state to false.
+ * @returns Redux Action that sets the App Loading state to false.
+ */
 export const finishLoadingAction = () => {
   return (dispatch: Dispatch<UiActions>) => {
     dispatch({

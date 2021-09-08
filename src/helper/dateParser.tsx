@@ -1,3 +1,8 @@
+/**
+ *
+ * @param date Date to be parsed
+ * @returns Parsed date
+ */
 export const dateParser = (date: string) => {
   const x = date;
   let MM: any = {
@@ -37,6 +42,11 @@ export const dateParser = (date: string) => {
   return xx;
 };
 
+/**
+ * Parses the event hour
+ * @param hour to be parsed
+ * @returns hour parsed
+ */
 export const hourParser = (hour: string) => {
   const hours = hour.split(':')[0];
   const minutes = hour.split(':')[1];

@@ -7,6 +7,13 @@ import {
 } from '../constants/MAPS_KEY';
 import { GooglePlacesResponse } from '../types/GooglePlaces';
 
+/**
+ * Custom Hook for managing Google Places Autocomplete Results
+ * @param searchTerm User input for google search.
+ * @param form event form.
+ * @param setFormValue method used for setting an event form value.
+ * @returns Places that match the search criteria
+ */
 export const useGoogleSearch = (
   searchTerm: string,
   form: Event,
@@ -18,6 +25,10 @@ export const useGoogleSearch = (
     fetchPlaces();
   }, [searchTerm]);
 
+  /**
+   * Gets a place full information using Places API Details.
+   * @param placeId used for getting the selected place information
+   */
   const onPredictionSelected = async (placeId: string) => {
     try {
       const response = await axios.post<GooglePlacesResponse>(
@@ -38,6 +49,9 @@ export const useGoogleSearch = (
     }
   };
 
+  /**
+   * Fetches places that match the searching criteria using Google Places Autocomplete API.
+   */
   const fetchPlaces = async () => {
     try {
       const response = await axios.post(

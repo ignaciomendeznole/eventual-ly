@@ -6,10 +6,17 @@ import { GeocodingResponse } from '../types/geocoding';
 import { useDispatch } from 'react-redux';
 import { finishLoadingAction, loadingAction } from '../store/actions/uiActions';
 
+/**
+ * Custom Hook used for requesting the user's current location alongside with Geocode API.
+ * @returns User current location
+ */
 export const useCurrentLocation = () => {
   const [currentLocation, setCurrentLocation] = useState<GeocodingResponse>();
   const dispatch = useDispatch();
 
+  /**
+   * Gets the user geolocation.
+   */
   const getUserLocation = async () => {
     dispatch(loadingAction());
     try {
@@ -20,6 +27,12 @@ export const useCurrentLocation = () => {
       console.log(error);
     }
   };
+
+  /**
+   * Translates the user's geolocation and gets the current location information of the user based on his coordinates.
+   * @param latitude of the user
+   * @param longitude of the user
+   */
   const getLocationInformation = async (
     latitude: number,
     longitude: number

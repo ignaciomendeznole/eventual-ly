@@ -38,6 +38,9 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
   let mockDescription =
     'Lorem ipsum dolor sit amet consectetur, adipiscing elit luctus leo, lacinia erat venenatis elementum. Varius cubilia ridiculus orci fames tempus ornare potenti maecenas litora, ultrices dignissim vitae himenaeos tempor mattis viverra aenean, pulvinar rhoncus massa fringilla leo facilisi est vivamus. Feugiat viverra pretium magna vulputate nibh malesuada arcu accumsan, netus sociosqu quisque aenean fermentum euismod facilisi risus pulvinar, placerat class purus tristique commodo hendrerit vitae.';
 
+  /**
+   * Checks if an event is liked or not in order to show a filled heart icon.
+   */
   const checkIfLiked = () => {
     if (wishList.includes(event)) {
       setLiked(true);
@@ -49,9 +52,11 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
   const removeEventFromWishList = () => {
     dispatch(removeFromWishList(event));
   };
+
   const moveBack = () => {
     navigation.goBack();
   };
+
   useEffect(() => {
     checkIfLiked();
   }, [wishList]);

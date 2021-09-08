@@ -62,7 +62,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigation }) => {
               <Text style={styles.textStyle}>{name}</Text>
               <Text style={styles.textStyle}>
                 {location?.address_components[1].long_name},{' '}
-                {location?.address_components[4].long_name}
+                {location?.address_components[3].long_name}
               </Text>
             </View>
             <View style={styles.regionContainer}>

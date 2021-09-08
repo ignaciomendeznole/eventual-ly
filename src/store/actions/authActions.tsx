@@ -6,6 +6,12 @@ import { AuthAction, UserSignupResponse } from '../../types/types';
 import clients from '../../../config.json';
 import axiosClient from '../../../config/axiosClient';
 
+/**
+ * Checks user's credentials for App Login and sets the app state with credentials.
+ * @param email Used for user authentication
+ * @param password Used for user authentication
+ * @returns Redux Action handler for User Authentication Sign In
+ */
 export const startLoginEmailPassword = (email: string, password: string) => {
   return async (dispatch: Dispatch<AuthAction>) => {
     dispatch({
@@ -29,13 +35,17 @@ export const startLoginEmailPassword = (email: string, password: string) => {
         type: 'ERROR_SIGN_IN',
         payload: {
           error: true,
-          errorMsg: error,
+          errorMsg: 'Could not sign in',
         },
       });
     }
   };
 };
 
+/**
+ * Method for error cleanup
+ * @returns Redux Action for error cleanup
+ */
 export const removeError = () => {
   return (dispatch: Dispatch<AuthAction>) => {
     dispatch({
@@ -44,6 +54,10 @@ export const removeError = () => {
   };
 };
 
+/**
+ * Hides the landing screen after first time the user logs in.
+ * @returns Redux Action for hiding Landing Screen
+ */
 export const hideWelcomeScreen = () => {
   return async (dispatch: Dispatch<AuthAction>) => {
     try {
@@ -57,6 +71,14 @@ export const hideWelcomeScreen = () => {
   };
 };
 
+/**
+ * Creates an account for the user with the specified email and password.
+ * @param email User email
+ * @param password User password
+ * @param firstName User first name
+ * @param familyName User last name
+ * @returns Redux action used for creating an account
+ */
 export const signUpAction = (
   email: string,
   password: string,
@@ -94,13 +116,17 @@ export const signUpAction = (
         type: 'ERROR_SIGN_IN',
         payload: {
           error: true,
-          errorMsg: error,
+          errorMsg: 'Could not sign user up',
         },
       });
     }
   };
 };
 
+/**
+ * Logs the user in using Google's built-in Authentication.
+ * @returns Redux Action used for setting user's credentials in Redux Store
+ */
 export const startGoogleLogin = () => {
   return async (dispatch: Dispatch<AuthAction>) => {
     dispatch({
@@ -135,13 +161,17 @@ export const startGoogleLogin = () => {
         type: 'ERROR_SIGN_IN',
         payload: {
           error: true,
-          errorMsg: error,
+          errorMsg: 'Could not sign user in with Google',
         },
       });
     }
   };
 };
 
+/**
+ * Signs the user out, removing the auth token from firebase.
+ * @returns Redux Action for removing user's credentials from the store.
+ */
 export const signOut = () => {
   return async (dispatch: Dispatch<AuthAction>) => {
     try {
