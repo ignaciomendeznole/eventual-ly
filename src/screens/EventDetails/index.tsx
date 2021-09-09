@@ -42,11 +42,7 @@ export const EventDetails: React.FC<Props> = ({ route, navigation }) => {
    * Checks if an event is liked or not in order to show a filled heart icon.
    */
   const checkIfLiked = () => {
-    if (wishList.includes(event)) {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
+    setLiked(wishList.some((evt) => evt.name.includes(event.name)));
   };
 
   const removeEventFromWishList = () => {
